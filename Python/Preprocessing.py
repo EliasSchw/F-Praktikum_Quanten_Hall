@@ -19,8 +19,7 @@ FactorFürsMagnetfel = 0.9
 formfaktor = 6
 
 zeitoffset = 4
-switchFaktorAlpha = 1 #noch zu ändern
-
+alpha = 1.0103310857773136 #switchkorrektur
 
 filepath_4_2K = r'RawData/1 0.dat'
 filepath_3K = r'RawData/18_23V2_970K_end_18_30V_2_970K 1.dat'
@@ -48,6 +47,9 @@ Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.9
                   
 
 def getDatenreihe(nameMessung:str):
+    '''
+    returns a dic with 'B', 'I', 'rho_xx', 'rho_xy' 
+    '''
     return preprocessing(Messungen_dict[nameMessung])
 
 
@@ -73,13 +75,21 @@ def zeitUmstellung(raw_data):
 def preprocessing(Messung):
     raw_data = zeitUmstellung(einlesen(Messung['path']))
     if Messung['switched']:
-        raw_data['U_xy'], raw_data['U_I'] =  raw_data['U_I'], raw_data['U_xy'] 
+        raw_data['U_xy'], raw_data['U_I'] =  raw_data['U_I'], raw_data['U_xy']
+    
 
     processedData = {}
     processedData['I'] = [U_I/R_für_Strom for U_I in raw_data['U_I']]
     processedData['B'] = [U_B*FactorFürsMagnetfel for U_B in raw_data['U_B']]
     processedData['rho_xy'] = [U_xy/I for U_xy, I in zip(raw_data['U_xy'], processedData['I'])]
     processedData['rho_xx'] = [U_xx/formfaktor for U_xx in raw_data['U_xx']]
+    
+    #alpha Korrektur
+    if Messung['switched']:
+        processedData['rho_xy'] = [rho_xy / alpha for rho_xy in processedData['rho_xy']]
+    else:
+        processedData['rho_xy'] = [rho_xy * alpha for rho_xy in processedData['rho_xy']]
+        
     return processedData
 
 def plotHall():

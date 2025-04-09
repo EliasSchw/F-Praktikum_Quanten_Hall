@@ -23,11 +23,12 @@ def writePlateauMacros(HallPlateaus, data_set):
 writePlateauMacros(HallPlateaus, getDatenreihe('4.2K'))
 
 def findAlpha():
-    print(average(getDatenreihe('1.4K'),[8,10]))
-    print(average(getDatenreihe('1.4K_switched'),[8,10]))
+    R_k1 = average(getDatenreihe('1.4K'),[8,10])
+    R_k2 = average(getDatenreihe('1.4K_switched'),[8,10])
+    return(np.sqrt(R_k2/R_k1))
     
 
-findAlpha()
+print(findAlpha())
     
     
 
