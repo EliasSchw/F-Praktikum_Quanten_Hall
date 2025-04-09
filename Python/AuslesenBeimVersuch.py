@@ -17,7 +17,7 @@ def U_Hall_plotten(U_I, U_Hall, U_B):
     plt.ylabel(r'$U_{Hall}/I= \rho _{xy}$')
     
     #plotter.fancyGraph()
-    plotter.save(open=True)
+    plotter.save_and_open(open=True)
 
 
 def U_xx_plotten(U_I, U_xx, U_B):
@@ -25,7 +25,7 @@ def U_xx_plotten(U_I, U_xx, U_B):
     plt.plot(U_B, [U_Hall/U_I for U_Hall, U_I in zip(U_xx,U_I)], '.', linewidth=0.9)
     
     plotter.fancyGraph()
-    plotter.save(open=True)
+    plotter.save_and_open(open=True)
 
 
 

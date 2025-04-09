@@ -14,7 +14,7 @@ def einlesen(file_path:str):
     # Convert the DataFrame to a dictionary
     data_dict = data.to_dict(orient='list')
     # Set the names of the elements of the list
-    names = ['time', 'U_B', 'U_Hall', 'U_I', 'U_xx']
+    names = ['time', 'U_B', 'U_xy', 'U_I', 'U_xx']
     data_dict = {names[i]: [float(value.replace(',', '.')) for value in values] for i, values in enumerate(data_dict.values())}
 
     # Print the dictionary to verify the content

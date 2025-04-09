@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def save(open = False, filename='foo'):
+def save_and_open(open = True, filename='foo'):
     plt.savefig('.\\Paper\\Images\\'+filename + '.png', dpi=600)
     from PIL import Image
     if open:

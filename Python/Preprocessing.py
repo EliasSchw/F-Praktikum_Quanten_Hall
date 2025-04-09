@@ -3,6 +3,7 @@ import DataPlotter as plotter
 import matplotlib.pyplot as plt
 from macroswriter import writeLatexMacro
 
+
 '''
 Tasks:
 
@@ -16,12 +17,8 @@ R_für_Strom = 4.982*10**3
 FactorFürsMagnetfel = 0.9
 formfaktor = 6
 
-#magnetfeldGeschwindigkeitAmpsprosek = 0.213
-#FeldkonstangeMagnet = 0.095815 #T/A
-#Zeitoffset = 1.5
-#MagFeldOffset = Zeitoffset*magnetfeldGeschwindigkeitAmpsprosek*FeldkonstangeMagnet
-
-zeitoffset = 1.5
+zeitoffset = 4
+switchFaktorAlpha = 1 #noch zu ändern
 
 
 filepath_erste_Messung = r'C:\Users\schwa\OneDrive\EliasOneDrive\Uni\7. Semester\F-Praktikum\F-Praktikum\Quanten-Hall\F-Praktikum_Quanten_Hall\RawData\ersteTestDaten\1 0.dat'
@@ -29,76 +26,91 @@ filepath_switched = r'C:\Users\schwa\OneDrive\EliasOneDrive\Uni\7. Semester\F-Pr
 
 
 # im Array: filepath, cut_rampup_anfang (Zeit), cut_rampup_ende, cut_rampdown_anfang, cut_rampdown_ende, temp, temp_fehler, U_gate, switched:boolean
-Messungen_dict = {'erste Messung': {'path': filepath_erste_Messung, 
-                            'cut_rampup_anfang': 8, 'cut_rampup_ende':350, 'cut_rampdown_anfang':550, 'cut_rampdown_ende':900,
-                            'Offset_up':69, 'Offset_down':69},
+Messungen_dict = {'erste Messung': {'path': filepath_erste_Messung, 'switched': False,
+                            'cut_rampup_anfang': 5.42, 'cut_rampup_ende':441, 'cut_rampdown_anfang':459, 'cut_rampdown_ende':896},
                   
-                    'switched' : {'path': filepath_switched}}
+                    'switchedTestMessung' : {'path': filepath_switched}}
+
+
+#zur präzisen bestimmung der cutoffs
+def plotBNachZeitZurCutoffBestimmung(Messung):
+    data=einlesen(Messung['path'])
+    plt.plot(data['time'], data['U_B'])
+    plt.axvline(Messung['cut_rampup_anfang'], label='up_anfang', color='red')
+    plt.axvline(Messung['cut_rampup_ende'], label='up_ende', color='green')    
+    plt.axvline(Messung['cut_rampdown_anfang'], label='down_anfang', color='purple')
+    plt.axvline(Messung['cut_rampdown_ende'], label='down_ende', color='orange')
+    plotter.fancyGraph()
+    plt.show()    
 
 
 def getDatenreihe(nameMessung:str):
     return preprocessing(Messungen_dict[nameMessung])
 
 
-def cutter(data, t_anfang, t_ende):
-    time_indices = [i for i, t in enumerate(data["time"]) if t_anfang < t < t_ende]
-    chopped_data = {key: [values[i] for i in time_indices] for key, values in data.items()}
+def cutter(data_sets, t_anfang, t_ende):
+    time_indices = [i for i, t in enumerate(data_sets["time"]) if t_anfang < t < t_ende]
+    chopped_data = {key: [values[i] for i in time_indices] for key, values in data_sets.items()}
     return chopped_data
 
-def zeitVerschieben(raw_data):
-    
-    verschoben_U_B = []
+
+def zeitUmstellung(raw_data):
+    U_xy_versch = []
+    U_xx_versch = []
+    U_I_versch = []
     for i, _ in enumerate(raw_data['time']):
         if i >= zeitoffset*10:                   #*10 wegen o.1s zeitschritten
-            verschoben_U_B.append(raw_data['U_B'][int(i-zeitoffset*10)])
+            U_xy_versch.append(raw_data['U_xy'][int(i)])
+            U_xx_versch.append(raw_data['U_xx'][int(i)])
+            U_I_versch.append(raw_data['U_I'][int(i)])
         
-    
-    raw_data['U_B'] = verschoben_U_B
+    raw_data['U_xy'] = U_xy_versch
+    raw_data['U_xx'] = U_xx_versch
+    raw_data['U_I'] = U_I_versch
     return raw_data
     
 
-
 def preprocessing(Messung):
-    raw_data = zeitVerschieben(einlesen(Messung['path']))
+    raw_data = zeitUmstellung(einlesen(Messung['path']))
+    if Messung['switched']:
+        raw_data['U_xy'], raw_data['U_I'] =  raw_data['U_I'], raw_data['U_xy'] 
+        
 
     data_up = cutter(raw_data, Messung['cut_rampup_anfang'], Messung['cut_rampup_ende'])
     data_down = cutter(raw_data, Messung['cut_rampdown_anfang'], Messung['cut_rampdown_ende'])
     
-    
-    
     I_up = [U_I/R_für_Strom for U_I in data_up['U_I']]
     I_down = [U_I/R_für_Strom for U_I in data_down['U_I']]
 
-    B_up = [U_B*FactorFürsMagnetfel - Messung['Offset_up'] for U_B in data_up['U_B']]
-    B_down = [U_B*FactorFürsMagnetfel + Messung['Offset_down'] for U_B in data_down['U_B']]
+    B_up = [U_B*FactorFürsMagnetfel for U_B in data_up['U_B']]
+    B_down = [U_B*FactorFürsMagnetfel for U_B in data_down['U_B']]
 
-    rho_xy_up = [U_Hall/I for U_Hall, I in zip(data_up['U_Hall'], I_up)]
-    rho_xy_down = [U_Hall/I for U_Hall, I in zip(data_down['U_Hall'], I_down)]
+    rho_xy_up = [U_xy/I for U_xy, I in zip(data_up['U_xy'], I_up)]
+    rho_xy_down = [U_xy/I for U_xy, I in zip(data_down['U_xy'], I_down)]
 
     rho_xx_up = [U_xx/formfaktor for U_xx in data_up['U_xx']]
     rho_xx_down = [U_xx/formfaktor for U_xx in data_down['U_xx']]
 
-
+    '''plt.plot(B_up, rho_xy_up, 'o', markersize=0.1, color='red', label='up')
+    plt.plot(B_down, rho_xy_down, 'o', markersize=0.1, color='blue', label='down')
+    plt.legend()
+    plotter.fancyGraph()
+    plotter.save_and_open(open=True)    
+    '''
     processedData = {}
     processedData['I'] = I_up + I_down
     processedData['B'] = B_up + B_down
     processedData['rho_xy'] = rho_xy_up + rho_xy_down
     processedData['rho_xx'] = rho_xx_up + rho_xx_down
-    
     return processedData
 
 
-#data = einlesen(Messungen_dict['erste Messung']['path'])
-#plt.plot(data['time'], data['U_Hall'])
-
-datenreihe = preprocessing(Messungen_dict['erste Messung'])
-plt.plot(datenreihe['B'], datenreihe['rho_xy'])
-plt.show()
 
 
 
 
 
+#preprocessing(Messungen_dict['erste Messung'])
 
 
 
