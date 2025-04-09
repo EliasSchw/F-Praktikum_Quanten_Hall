@@ -75,6 +75,7 @@ def preprocessing(Messung):
     if Messung['switched']:
         raw_data['U_xy'], raw_data['U_I'] =  raw_data['U_I'], raw_data['U_xy'] 
 
+
     processedData = {}
     processedData['I'] = [U_I/R_für_Strom for U_I in raw_data['U_I']]
     processedData['B'] = [U_B*FactorFürsMagnetfel for U_B in raw_data['U_B']]
