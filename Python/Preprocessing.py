@@ -91,12 +91,13 @@ def preprocessing(Messung):
     rho_xx_up = [U_xx/formfaktor for U_xx in data_up['U_xx']]
     rho_xx_down = [U_xx/formfaktor for U_xx in data_down['U_xx']]
 
-    '''plt.plot(B_up, rho_xy_up, 'o', markersize=0.1, color='red', label='up')
+    plt.plot(B_up, rho_xy_up, 'o', markersize=0.1, color='red', label='up')
     plt.plot(B_down, rho_xy_down, 'o', markersize=0.1, color='blue', label='down')
     plt.legend()
     plotter.fancyGraph()
-    plotter.save_and_open(open=True)    
-    '''
+    plt.show()
+    #plotter.save_and_open(open=True)    
+    
     processedData = {}
     processedData['I'] = I_up + I_down
     processedData['B'] = B_up + B_down
@@ -110,7 +111,7 @@ def preprocessing(Messung):
 
 
 
-#preprocessing(Messungen_dict['erste Messung'])
+preprocessing(Messungen_dict['erste Messung'])
 
 
 
