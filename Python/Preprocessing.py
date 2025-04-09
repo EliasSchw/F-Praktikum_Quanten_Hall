@@ -2,6 +2,7 @@ from Leseratte import einlesen
 import DataPlotter as plotter
 import matplotlib.pyplot as plt
 from macroswriter import writeLatexMacro
+import numpy as np
 
 
 '''
@@ -44,45 +45,28 @@ Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.9
                     
                     
                     
-                    
-                    
-
-
-#zur präzisen bestimmung der cutoffs
-def plotBNachZeitZurCutoffBestimmung(Messung):
-    data=einlesen(Messung['path'])
-    plt.plot(data['time'], data['U_B'])
-    plt.axvline(Messung['cut_rampup_anfang'], label='up_anfang', color='red')
-    plt.axvline(Messung['cut_rampup_ende'], label='up_ende', color='green')    
-    plt.axvline(Messung['cut_rampdown_anfang'], label='down_anfang', color='purple')
-    plt.axvline(Messung['cut_rampdown_ende'], label='down_ende', color='orange')
-    plotter.fancyGraph()
-    plt.show()    
-
+                  
 
 def getDatenreihe(nameMessung:str):
     return preprocessing(Messungen_dict[nameMessung])
-
-
-def cutter(data_sets, t_anfang, t_ende):
-    time_indices = [i for i, t in enumerate(data_sets["time"]) if t_anfang < t < t_ende]
-    chopped_data = {key: [values[i] for i in time_indices] for key, values in data_sets.items()}
-    return chopped_data
 
 
 def zeitUmstellung(raw_data):
     U_xy_versch = []
     U_xx_versch = []
     U_I_versch = []
+    U_B_versch  = []
     for i, _ in enumerate(raw_data['time']):
         if i >= zeitoffset*10:                   #*10 wegen o.1s zeitschritten
             U_xy_versch.append(raw_data['U_xy'][int(i)])
             U_xx_versch.append(raw_data['U_xx'][int(i)])
             U_I_versch.append(raw_data['U_I'][int(i)])
+            U_B_versch.append(raw_data['U_B'][int(i-zeitoffset*10)]) 
         
     raw_data['U_xy'] = U_xy_versch
     raw_data['U_xx'] = U_xx_versch
     raw_data['U_I'] = U_I_versch
+    raw_data['U_B'] = U_B_versch
     return raw_data
     
 
@@ -90,43 +74,19 @@ def preprocessing(Messung):
     raw_data = zeitUmstellung(einlesen(Messung['path']))
     if Messung['switched']:
         raw_data['U_xy'], raw_data['U_I'] =  raw_data['U_I'], raw_data['U_xy'] 
-        
 
-    data_up = cutter(raw_data, Messung['cut_rampup_anfang'], Messung['cut_rampup_ende'])
-    data_down = cutter(raw_data, Messung['cut_rampdown_anfang'], Messung['cut_rampdown_ende'])
-    
-    I_up = [U_I/R_für_Strom for U_I in data_up['U_I']]
-    I_down = [U_I/R_für_Strom for U_I in data_down['U_I']]
-
-    B_up = [U_B*FactorFürsMagnetfel for U_B in data_up['U_B']]
-    B_down = [U_B*FactorFürsMagnetfel for U_B in data_down['U_B']]
-
-    rho_xy_up = [U_xy/I for U_xy, I in zip(data_up['U_xy'], I_up)]
-    rho_xy_down = [U_xy/I for U_xy, I in zip(data_down['U_xy'], I_down)]
-
-    rho_xx_up = [U_xx/formfaktor for U_xx in data_up['U_xx']]
-    rho_xx_down = [U_xx/formfaktor for U_xx in data_down['U_xx']]
-    '''
-    plt.plot(B_up, rho_xy_up, 'o', markersize=0.1, color='red', label='up')
-    plt.plot(B_down, rho_xy_down, 'o', markersize=0.1, color='blue', label='down')
-    plt.legend()
-    plotter.fancyGraph()
-    plotter.save_and_open(open=True)    
-    ''' 
     processedData = {}
-    processedData['I'] = I_up + I_down
-    processedData['B'] = B_up + B_down
-    processedData['rho_xy'] = rho_xy_up + rho_xy_down
-    processedData['rho_xx'] = rho_xx_up + rho_xx_down
+    processedData['I'] = [U_I/R_für_Strom for U_I in raw_data['U_I']]
+    processedData['B'] = [U_B*FactorFürsMagnetfel for U_B in raw_data['U_B']]
+    processedData['rho_xy'] = [U_xy/I for U_xy, I in zip(raw_data['U_xy'], processedData['I'])]
+    processedData['rho_xx'] = [U_xx/formfaktor for U_xx in raw_data['U_xx']]
     return processedData
 
-
-
-
-
-
-
-#preprocessing(Messungen_dict['4.2K'])
-#plotBNachZeitZurCutoffBestimmung(Messungen_dict['3K'])
-
+def plotHall():
+    data = getDatenreihe('4.2K')
+    colors = np.linspace(0, 1, len(data['B']))
+    scatter = plt.scatter(data['B'], data['rho_xy'], c=colors, cmap='viridis')
+    plt.colorbar(scatter, label='Color Gradient')
+    plt.show()
+    
 
