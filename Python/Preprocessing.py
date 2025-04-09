@@ -127,6 +127,6 @@ def preprocessing(Messung):
 
 
 #preprocessing(Messungen_dict['4.2K'])
-plotBNachZeitZurCutoffBestimmung(Messungen_dict['3K'])
+#plotBNachZeitZurCutoffBestimmung(Messungen_dict['3K'])
 
 
