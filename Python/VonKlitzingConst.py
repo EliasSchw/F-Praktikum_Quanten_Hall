@@ -21,3 +21,15 @@ def writePlateauMacros(HallPlateaus, data_set):
                             r'$\Omega$')
 
 writePlateauMacros(HallPlateaus, getDatenreihe('4.2K'))
+
+def findAlpha():
+    print(average(getDatenreihe('1.4K'),[8,10]))
+    print(average(getDatenreihe('1.4K_switched'),[8,10]))
+    
+
+findAlpha()
+    
+    
+
+
+
