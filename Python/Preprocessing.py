@@ -21,15 +21,26 @@ zeitoffset = 4
 switchFaktorAlpha = 1 #noch zu ändern
 
 
-filepath_erste_Messung = r'C:\Users\schwa\OneDrive\EliasOneDrive\Uni\7. Semester\F-Praktikum\F-Praktikum\Quanten-Hall\F-Praktikum_Quanten_Hall\RawData\ersteTestDaten\1 0.dat'
-filepath_switched = r'C:\Users\schwa\OneDrive\EliasOneDrive\Uni\7. Semester\F-Praktikum\F-Praktikum\Quanten-Hall\F-Praktikum_Quanten_Hall\RawData\ersteTestDaten\LI_swiched_153_3V1_470K_end_135_1V1_520K 5.dat'
-
+filepath_4_2K = r'RawData/1 0.dat'
+filepath_3K = r'RawData/18_23V2_970K_end_18_30V_2_970K 1.dat'
+filepath_2_1K = r'RawData/43_6V2_08K_end_44_8V_2_100K 3.dat'
+filepath_1_4K = r'RawData/133V1_520K_end_133_1V1_520K 4.dat'
+filepath_1_4K_switched = r'RawData/Gate_--1_49904V_LI_swiched_151_6V1_470K_end_133_3V1_520K 9.dat'
+filepath_Gate_minus_1_5V = r'RawData/Gate_--1_49904V_LI_swiched_151_6V1_470K_end_133_3V1_520K 9.dat'
 
 # im Array: filepath, cut_rampup_anfang (Zeit), cut_rampup_ende, cut_rampdown_anfang, cut_rampdown_ende, temp, temp_fehler, U_gate, switched:boolean
-Messungen_dict = {'erste Messung': {'path': filepath_erste_Messung, 'switched': False,
-                            'cut_rampup_anfang': 5.42, 'cut_rampup_ende':441, 'cut_rampdown_anfang':459, 'cut_rampdown_ende':896},
-                  
-                    'switchedTestMessung' : {'path': filepath_switched}}
+Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.99, 'temp_fehler': 0.031, 'U_gate': -0.25,'cut_rampup_anfang': 5.42, 'cut_rampup_ende':441, 'cut_rampdown_anfang':459, 'cut_rampdown_ende':896},                 
+                    '3K' : {'path': filepath_3K, 'cut_rampup_anfang': 6.01, 'cut_rampup_ende': 439, 'cut_rampdown_anfang': 447, 'cut_rampdown_ende': 882, 'temp': 2.97, 'temp_fehler': 0.0, 'U_gate': -0.25, 'switched': False},
+                    '2.1K' : {'path': filepath_2_1K, 'cut_rampup_anfang': 5.2, 'cut_rampup_ende': 440, 'cut_rampdown_anfang': 445.5, 'cut_rampdown_ende': 880, 'temp': 2.11, 'temp_fehler': 0.01, 'U_gate': -0.25, 'switched': False},
+                    '1.4K' : {'path': filepath_1_4K, 'cut_rampup_anfang': 5.4, 'cut_rampup_ende': 440, 'cut_rampdown_anfang': 455, 'cut_rampdown_ende': 889, 'temp': 1.52, 'temp_fehler': 0.0, 'U_gate': -0.25, 'switched': False},
+                    '1.4K_switched' : {'path': filepath_1_4K_switched, 'cut_rampup_anfang': 4.7, 'cut_rampup_ende': 439, 'cut_rampdown_anfang': 456, 'cut_rampdown_ende': 889, 'temp': 1.495, 'temp_fehler': 0.025, 'U_gate': -0.25, 'switched': True},
+                    'Gate_minus_1_5v' : {'path': filepath_Gate_minus_1_5V, 'cut_rampup_anfang': 5.93, 'cut_rampup_ende': 440, 'cut_rampdown_anfang': 455, 'cut_rampdown_ende': 889, 'temp': 1.495, 'temp_fehler': 0.025, 'U_gate': -1.5, 'switched': True},
+                    }
+                    
+                    
+                    
+                    
+                    
 
 
 #zur präzisen bestimmung der cutoffs
@@ -90,13 +101,13 @@ def preprocessing(Messung):
 
     rho_xx_up = [U_xx/formfaktor for U_xx in data_up['U_xx']]
     rho_xx_down = [U_xx/formfaktor for U_xx in data_down['U_xx']]
-
-    '''plt.plot(B_up, rho_xy_up, 'o', markersize=0.1, color='red', label='up')
+    '''
+    plt.plot(B_up, rho_xy_up, 'o', markersize=0.1, color='red', label='up')
     plt.plot(B_down, rho_xy_down, 'o', markersize=0.1, color='blue', label='down')
     plt.legend()
     plotter.fancyGraph()
     plotter.save_and_open(open=True)    
-    '''
+    ''' 
     processedData = {}
     processedData['I'] = I_up + I_down
     processedData['B'] = B_up + B_down
@@ -110,7 +121,7 @@ def preprocessing(Messung):
 
 
 
-#preprocessing(Messungen_dict['erste Messung'])
-
+#preprocessing(Messungen_dict['4.2K'])
+plotBNachZeitZurCutoffBestimmung(Messungen_dict['3K'])
 
 
