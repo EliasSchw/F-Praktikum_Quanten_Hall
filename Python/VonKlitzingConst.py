@@ -1,7 +1,7 @@
 from Preprocessing import getDatenreihe
 import matplotlib.pyplot as plt
 import numpy as np
-from macroswriter import writeLatexMacro
+import macroswriter as marco
 
 
 def average(data_set, AnfangEnde):
@@ -17,8 +17,10 @@ HallPlateaus = [[8,10],[4.1,4.75],[2.9,3.1],[2.2,2.3],[1.77,1.86]]
 def writePlateauMacros(HallPlateaus, data_sets):
     for name in ('4.2K', '3K', '2.1K', '1.4K'):
         for i in range(len(HallPlateaus)):
-            writeLatexMacro(f'PlateauNr{i+1}{name.replace(' ','').replace('_','')}', average(data_sets[name], HallPlateaus[i]),
-                            r'$\Omega$')
+            marco.writeLatexCSname(f'PlateauNr{i+1}{name.replace(' ','').replace('_','')}', 10**-4*average(data_sets[name], HallPlateaus[i]),
+                            r'', noBrackets=True)
+            marco.writeLatexCSname(f'PlateauMalNuNr{i+1}{name.replace(' ','').replace('_','')}', 10**-4*(i+1)*average(data_sets[name], HallPlateaus[i]),
+                            r'', noBrackets=True)
 
 
 def findAlpha():

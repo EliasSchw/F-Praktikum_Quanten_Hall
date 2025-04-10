@@ -3,6 +3,8 @@ import DataPlotter as plotter
 import matplotlib.pyplot as plt
 from macroswriter import writeLatexMacro
 import numpy as np
+from scipy.interpolate import interp1d
+from numpy import array
 
 
 '''
@@ -18,7 +20,7 @@ R_für_Strom = 4.982*10**3
 FactorFürsMagnetfel = 0.9
 formfaktor = 6
 
-zeitoffset = 4
+zeitoffset = 3.8
 alpha = 1.0103310857773136 #switchkorrektur
 
 filepath_4_2K = r'RawData/1 0.dat'
@@ -77,7 +79,6 @@ def preprocessing(Messung):
     if Messung['switched']:
         raw_data['U_xy'], raw_data['U_I'] =  raw_data['U_I'], raw_data['U_xy']
     
-
     processedData = {}
     processedData['I'] = [U_I/R_für_Strom for U_I in raw_data['U_I']]
     processedData['B'] = [U_B*FactorFürsMagnetfel for U_B in raw_data['U_B']]
@@ -88,7 +89,8 @@ def preprocessing(Messung):
         processedData['rho_xy'] = [rho_xy / alpha for rho_xy in processedData['rho_xy']]
     else:
         processedData['rho_xy'] = [rho_xy * alpha for rho_xy in processedData['rho_xy']]
-        
+    
+    processedData = interpoliereFürLukas(processedData)
     return processedData
 
 def plotHall():
@@ -103,16 +105,78 @@ def plotHalls():
     data2 = getDatenreihe('3K')
     data3 = getDatenreihe('2.1K')
     data4 = getDatenreihe('1.4K')
+    
+    # Get the first half of data1 array
+    data1_half ={}
+    data1_half2 ={}
+    half_index = len(data1['B']) // 2
+    data1_half['B'] = data1['B'][:half_index]
+    data1_half['rho_xy'] = data1['rho_xy'][:half_index]
+    # Get the second half of data2 array
+    data1_half2['B'] = data1['B'][half_index:]
+    data1_half2['rho_xy'] = data1['rho_xy'][half_index:]
 
     plt.figure()
-    plt.plot(data1['B'], data1['rho_xy'], label='4.2K')
-    plt.plot(data2['B'], data2['rho_xy'], label='3K')
-    plt.plot(data3['B'], data3['rho_xy'], label='2.1K')
-    plt.plot(data4['B'], data4['rho_xy'], label='1.4K')
+    plt.plot(data1_half['B'], data1_half['rho_xy'], label='4.2K')
+    plt.plot(data1_half2['B'], data1_half2['rho_xy'], label='second half')
+    
+    #plt.plot(data2['B'], data2['rho_xy'], label='3K')
+    #plt.plot(data3['B'], data3['rho_xy'], label='2.1K')
+    #plt.plot(data4['B'], data4['rho_xy'], label='1.4K')
     plt.legend()
     plt.xlabel('Magnetic Field B')
     plt.ylabel('Hall Resistivity ρ_xy')
     plt.title('Hall Resistivity vs Magnetic Field')
     plt.show()
+
+def interpoliereFürLukas(data):
+    max_index = np.argmax(data['B'])
+    data_first_half = {
+        'B': data['B'][:max_index + 1],
+        'rho_xy': data['rho_xy'][:max_index + 1],
+        'rho_xx': data['rho_xx'][:max_index + 1],
+        'I': data['I'][:max_index + 1]
+    }
+    data_second_half = {
+        'B': data['B'][max_index:],
+        'rho_xy': data['rho_xy'][max_index:],
+        'rho_xx': data['rho_xx'][max_index:],
+        'I': data['I'][max_index:]
+    }
     
-#plotHalls()
+    # Define equally spaced B values for interpolation
+    B_interp = np.linspace(min(data['B']), max(data['B']), num=2000)
+    # Interpolate rho_xy, rho_xx, and I using np.interp
+    data_first_half = {
+        'B': B_interp,
+        'rho_xy': np.interp(B_interp, data_first_half['B'], data_first_half['rho_xy']),
+        'rho_xx': np.interp(B_interp, data_first_half['B'], data_first_half['rho_xx']),
+        'I': np.interp(B_interp, data_first_half['B'], data_first_half['I'])
+    }
+    
+    #sortiere für interpolation
+    sorted_indices = np.argsort(data_second_half['B'])
+    data_second_half = {
+        'B': np.array(data_second_half['B'])[sorted_indices],
+        'rho_xy': np.array(data_second_half['rho_xy'])[sorted_indices],
+        'rho_xx': np.array(data_second_half['rho_xx'])[sorted_indices],
+       'I': np.array(data_second_half['I'])[sorted_indices],
+    }
+    
+    data_second_half = {
+        'B': B_interp,
+        'rho_xy': np.interp(B_interp, data_second_half['B'], data_second_half['rho_xy']),
+        'rho_xx': np.interp(B_interp, data_second_half['B'], data_second_half['rho_xx']),
+       'I': np.interp(B_interp, data_second_half['B'], data_second_half['I'])
+    }
+    
+    averaged = {
+        'B': np.array(B_interp),
+        'rho_xy': np.array([(a+b)/2 for a, b in zip(data_first_half['rho_xy'], data_second_half['rho_xy'])]),
+        'rho_xx': [(a+b)/2 for a, b in zip(data_first_half['rho_xx'], data_second_half['rho_xx'])],
+       'I': [(a+b)/2 for a, b in zip(data_first_half['I'], data_second_half['I'])]
+    }
+    return averaged
+
+    
+getDatenreihe('3K')
