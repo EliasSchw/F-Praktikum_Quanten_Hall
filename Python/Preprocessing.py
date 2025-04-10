@@ -82,8 +82,7 @@ def preprocessing(Messung):
     processedData['I'] = [U_I/R_für_Strom for U_I in raw_data['U_I']]
     processedData['B'] = [U_B*FactorFürsMagnetfel for U_B in raw_data['U_B']]
     processedData['rho_xy'] = [U_xy/I for U_xy, I in zip(raw_data['U_xy'], processedData['I'])]
-    processedData['rho_xx'] = [U_xx/formfaktor for U_xx in raw_data['U_xx']]
-    
+    processedData['rho_xx'] = [U_xx/(I*formfaktor) for U_xx, I in zip(raw_data['U_xx'],processedData['I'])]
     #alpha Korrektur
     if Messung['switched']:
         processedData['rho_xy'] = [rho_xy / alpha for rho_xy in processedData['rho_xy']]

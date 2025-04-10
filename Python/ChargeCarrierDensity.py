@@ -6,6 +6,7 @@ import pandas as pd
 from scipy.stats import linregress
 from scipy import constants as const
 
+Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
 def slicingWithPandas(Datenreihen):
     df = pd.DataFrame.from_dict(getDatenreihe(Datenreihen))
     I = df.iloc[:, 0]
@@ -115,5 +116,4 @@ nTable, nErrorTable, BTable, rhoXYTable, slopeTable = getN1(temperatures)
 
 writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
 writeN1Macros(nTable, nErrorTable, temperatures)
-print(nTable)
-print(nErrorTable)
+
