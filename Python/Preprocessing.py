@@ -90,4 +90,3 @@ def plotHall():
     plt.colorbar(scatter, label='Color Gradient')
     plt.show()
     
-
