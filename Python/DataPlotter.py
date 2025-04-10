@@ -10,6 +10,7 @@ def save_and_open(open = True, filename='foo'):
 
 def fancyGraph():
     plt.grid(True)
+    plt.gca().set_axisbelow(True)
     plt.xlabel(plt.gca().get_xlabel(), fontsize=15)
     plt.ylabel(plt.gca().get_ylabel(), fontsize=15)
     plt.tick_params(axis='both', labelsize=14)

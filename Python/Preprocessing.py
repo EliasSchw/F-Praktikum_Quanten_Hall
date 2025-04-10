@@ -93,10 +93,27 @@ def preprocessing(Messung):
     return processedData
 
 def plotHall():
-    data = getDatenreihe('4.2K')
+    data = getDatenreihe('3K')
     colors = np.linspace(0, 1, len(data['B']))
     scatter = plt.scatter(data['B'], data['rho_xy'], c=colors, cmap='viridis')
     plt.colorbar(scatter, label='Color Gradient')
     plt.show()
-    
 
+def plotHalls():
+    data1 = getDatenreihe('4.2K')    
+    data2 = getDatenreihe('3K')
+    data3 = getDatenreihe('2.1K')
+    data4 = getDatenreihe('1.4K')
+
+    plt.figure()
+    plt.plot(data1['B'], data1['rho_xy'], label='4.2K')
+    plt.plot(data2['B'], data2['rho_xy'], label='3K')
+    plt.plot(data3['B'], data3['rho_xy'], label='2.1K')
+    plt.plot(data4['B'], data4['rho_xy'], label='1.4K')
+    plt.legend()
+    plt.xlabel('Magnetic Field B')
+    plt.ylabel('Hall Resistivity ρ_xy')
+    plt.title('Hall Resistivity vs Magnetic Field')
+    plt.show()
+    
+#plotHalls()
