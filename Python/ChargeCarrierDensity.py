@@ -6,8 +6,6 @@ import pandas as pd
 from scipy.stats import linregress
 from scipy import constants as const
 
-Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
-
 def slicingWithPandas(Datenreihen):
     df = pd.DataFrame.from_dict(getDatenreihe(Datenreihen))
     I = df.iloc[:, 0]
@@ -22,8 +20,8 @@ def calculateSlope(B, rhoXY):
     rhoXY_cuttet = rhoXY[mask]
     linReg = linregress(B_cuttet, rhoXY_cuttet)
     slope = linReg[0]
-    nError = linReg[4]
-    n = 1 / (slope * const.e)
+    nError = (linReg[4] / (const.e * slope**2))/10**15
+    n = (1 / (slope * const.e))/10**15
     return n, nError, slope
 
 def getN1(Datenreihen):
@@ -40,8 +38,6 @@ def getN1(Datenreihen):
         nErrorTable.append(nError)
         BTable.append(B)
         rhoXYTable.append(rhoXY)
-        #print(nTable)
-        #print(nErrorTable)
     return nTable, nErrorTable, BTable, rhoXYTable, slopeTable
 
 def allLinFitsPlotting(Datenreihen):
@@ -60,79 +56,66 @@ def allLinFitsPlotting(Datenreihen):
     plt.grid()
     plt.show()
 
+def calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures, scale_factor=10**15):
+    e = const.e
+    h = const.h
 
-def calculate_mean_n_and_error(n2, Bn2_by_temperature, Bn2Error, temperatures):
-    """
-    Berechnet den Mittelwert von n und den zugehörigen Fehler für jede Temperatur.
+    n2 = (nu * Bn2 * e) / h
+    n2_error = ((nu * e) / h) * (Bn2Error / Bn2)
+    
+    # Mittelwert und Fehler über Spalten berechnen
+    mean_n_by_temperature = np.mean(n2, axis=0)  # Mittelwert über Spalten
+    mean_n_error_by_temperature = np.sqrt(np.sum(n2_error**2, axis=0)) / np.sqrt(n2.shape[0])  # Fehler über Spalten
+    
+    # Skalierung anwenden
+    mean_n_by_temperature /= scale_factor
+    mean_n_error_by_temperature /= scale_factor
 
-    Args:
-        n2 (np.array): Array mit den berechneten n-Werten.
-        Bn2_by_temperature (np.array): Transponiertes Array von Bn2, gruppiert nach Temperatur.
-        Bn2Error (np.array): Array mit den Fehlern von Bn2.
-        temperatures (list): Liste der Temperaturwerte.
-
-    Returns:
-        None: Gibt die Ergebnisse direkt aus.
-    """
-    # Fehler in n berechnen
-    n2_error = n2 * (Bn2Error.T / Bn2_by_temperature)  # Relativer Fehler von Bn2 auf n übertragen
-
-    # Mittelwerte und Fehler berechnen
-    mean_n_by_temperature = np.mean(n2, axis=1)
-    mean_n_error_by_temperature = np.sqrt(np.sum((Bn2Error.T / Bn2_by_temperature)**2, axis=1)) * mean_n_by_temperature
-
-    # Ergebnisse ausgeben
+    print("Berechnete Mittelwerte und Fehler für n:")
     for idx, temp in enumerate(temperatures):
-        print(f"Temperatur: {temp}")
-        print(f"  Mittelwert von n: {mean_n_by_temperature[idx]:.3e} ± {mean_n_error_by_temperature[idx]:.3e}")
+        print(f"  Temperatur: {temp}")
+        print(f"    Mittelwert von n: {mean_n_by_temperature[idx]:.3e} ± {mean_n_error_by_temperature[idx]:.3e}")
+
+    return mean_n_by_temperature, mean_n_error_by_temperature
 
 
-def calculate_mean_n_and_error_to_macros(n2, Bn2_by_temperature, Bn2Error, temperatures, macro_prefix="n", filepath="Paper/Latex/macros.tex"):
-    """
-    Berechnet den Mittelwert von n und den zugehörigen Fehler für jede Temperatur und schreibt sie in LaTeX-Makros.
 
-    Args:
-        n2 (np.array): Array mit den berechneten n-Werten.
-        Bn2_by_temperature (np.array): Transponiertes Array von Bn2, gruppiert nach Temperatur.
-        Bn2Error (np.array): Array mit den Fehlern von Bn2.
-        temperatures (list): Liste der Temperaturwerte.
-        macro_prefix (str): Präfix für die LaTeX-Makronamen.
-        filepath (str): Pfad zur LaTeX-Makrodatei.
+def writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures):
+    for i in range(len(temperatures)):
+        macro_name = f"nZwei_{temperatures[i].replace('.', '').replace('K', '')}"  
+        writeLatexMacro(macro_name, mean_n_by_temperature[i], unit="", error=mean_n_error_by_temperature[i],
+                        filepath="Paper/Latex/macros.tex", digitsIfNoError=6)
 
-    Returns:
-        None
-    """
-    # Fehler in n berechnen
-    n2_error = n2 * (Bn2Error.T / Bn2_by_temperature)  # Relativer Fehler von Bn2 auf n übertragen
+def writeN1Macros(nTable, nErrorTable, temperatures):
+    for i in range(len(temperatures)):
+        macro_name = f"nEins_{temperatures[i].replace('.', '').replace('K', '')}"  
+        writeLatexMacro(macro_name, nTable[i], unit="", error=nErrorTable[i],
+                        filepath="Paper/Latex/macros.tex")
 
-    # Mittelwerte und Fehler berechnen
-    mean_n_by_temperature = np.mean(n2, axis=1)
-    mean_n_error_by_temperature = np.sqrt(np.sum((Bn2Error.T / Bn2_by_temperature)**2, axis=1)) * mean_n_by_temperature
+# --- Datenbasis ---
 
-    # Ergebnisse ausgeben und in LaTeX-Makros schreiben
-    for idx, temp in enumerate(temperatures):
-        print(f"Temperatur: {temp}")
-        print(f"  Mittelwert von n: {mean_n_by_temperature[idx]:.3e} ± {mean_n_error_by_temperature[idx]:.3e}")
-        
-        # Schreibe die Werte in die LaTeX-Makros
-        macro_name = f"{macro_prefix}_{temp.replace('.', '').replace('K', '')}"  # Erzeuge Makronamen
-        writeLatexMacro(macro_name, mean_n_by_temperature[idx], unit="cm^{-2}", error=mean_n_error_by_temperature[idx], filepath=filepath)
+temperatures = ['4.2K', '3K', '2.1K', '1.4K']
 
+nu = np.array([[1, 1, 1, 1],
+               [2, 2, 2, 2],
+               [3, 3, 3, 3],
+               [4, 4, 4, 4]])
 
-nu = np.array([[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3], [4, 4, 4, 4]])  
 Bn2 = np.array([[8.2, 8.1, 7.9, 7.8],  
                 [4.4, 4.4, 4.4, 4.4],  
                 [3.01, 3.01, 3.01, 3.01],  
-                [2.25, 2.26, 2.26, 2.26]])  
+                [2.25, 2.26, 2.26, 2.26]])
 
-temperatures = ['4.2K', '3K', '2.1K', '1.4K']
-Bn2_by_temperature = Bn2.T 
-n2 = (nu.T * Bn2_by_temperature * const.e) / const.h
 Bn2Error = np.array([[0.1, 0.1, 0.1, 0.1],  
-                     [0.01, 0.01, 0.01, 0.01],  
+                     [0.07, 0.07, 0.07, 0.07],  
                      [0.05, 0.05, 0.05, 0.05],  
                      [0.01, 0.01, 0.01, 0.01]])
-calculate_mean_n_and_error(n2, Bn2_by_temperature, Bn2Error, temperatures)
 
+# --- Berechnung ---
 
+mean_n_by_temperature, mean_n_error_by_temperature = calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures)
 
+nTable, nErrorTable, BTable, rhoXYTable, slopeTable = getN1(temperatures)
+
+writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
+writeN1Macros(nTable, nErrorTable, temperatures)
