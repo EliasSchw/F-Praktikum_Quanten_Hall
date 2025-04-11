@@ -147,7 +147,7 @@ def interpoliereFürLukas(data):
     }
     
     # Define equally spaced B values for interpolation
-    B_interp = np.linspace(min(data['B']), max(data['B']), num=2000)
+    B_interp = np.linspace(min(data['B']), max(data['B']), num=20000)
     # Interpolate rho_xy, rho_xx, and I using np.interp
     data_first_half = {
         'B': B_interp,
