@@ -32,6 +32,7 @@ def getN1(Datenreihen):
     slopeTable = []
     BTable = []
     rhoXYTable = []
+    rhoXXTable = []
     for i in Datenreihen:
         I, B, rhoXY, rhoXX = slicingWithPandas(i)
         n, nError, slope = calculateSlope(B, rhoXY)
@@ -40,7 +41,8 @@ def getN1(Datenreihen):
         nErrorTable.append(nError)
         BTable.append(B)
         rhoXYTable.append(rhoXY)
-    return nTable, nErrorTable, BTable, rhoXYTable, slopeTable
+        rhoXXTable.append(rhoXX)
+    return nTable, nErrorTable, BTable, rhoXYTable, slopeTable, rhoXXTable
 
 def allLinFitsPlotting(Datenreihen):
     plt.figure(figsize=(10, 8))
@@ -81,15 +83,23 @@ def calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures, scale_factor=10*
     return mean_n_by_temperature, mean_n_error_by_temperature
 
 def writeN1Macros(nTable, nErrorTable, temperatures):
+    """
+    Schreibt die Makros für n1-Werte in die Datei macros.tex.
+    """
     for i in range(len(temperatures)):
         macro_name = f"nEins_{temperatures[i].replace('.', '').replace('K', '')}"  
-        writeLatexMacro(macro_name, nTable[i], unit="", error=nErrorTable[i],
+        writeLatexMacro(macro_name, nTable[i], unit=r"\text{m}^{-2}", error=nErrorTable[i],
                         filepath="Paper/Latex/macros.tex")
 
 def writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures):
+    """
+    Schreibt die Makros für n2-Werte in die Datei macros.tex.
+    """
     for i in range(len(temperatures)): 
-        writeLatexMacro(f"nZwei_{temperatures[i].replace('.', '').replace('K', '')}", mean_n_by_temperature[i], unit="", error=mean_n_error_by_temperature[i],
+        macro_name = f"nZwei_{temperatures[i].replace('.', '').replace('K', '')}"
+        writeLatexMacro(macro_name, mean_n_by_temperature[i], unit=r"\text{m}^{-2}", error=mean_n_error_by_temperature[i],
                         filepath="Paper/Latex/macros.tex")
+
 # --- Datenbasis ---
 
 temperatures = ['4.2K', '3K', '2.1K', '1.4K']
@@ -113,8 +123,9 @@ Bn2Error = np.array([[0.1, 0.1, 0.1, 0.1],
 
 mean_n_by_temperature, mean_n_error_by_temperature = calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures)
 
-nTable, nErrorTable, BTable, rhoXYTable, slopeTable = getN1(temperatures)
+nTable, nErrorTable, BTable, rhoXYTable, slopeTable, rhoXXTable = getN1(temperatures)
 
+# Makros schreiben
 writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
 writeN1Macros(nTable, nErrorTable, temperatures)
 
