@@ -20,3 +20,5 @@ plt.title('Gate Voltage = -1V')
 plt.legend()
 dp.fancyGraph()
 plt.show()
+
+hg
