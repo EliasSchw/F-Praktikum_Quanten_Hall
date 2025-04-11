@@ -9,14 +9,15 @@ from scipy import constants as const
 Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
 def slicingWithPandas(Datenreihen):
     df = pd.DataFrame.from_dict(getDatenreihe(Datenreihen))
-    I = df.iloc[:, 0]
-    B = df.iloc[:, 1]
-    rhoXY = df.iloc[:, 2]
-    rhoXX = df.iloc[:, 3]
+    I = df.iloc[:, 3]
+    B = df.iloc[:, 0]
+    rhoXY = df.iloc[:, 1]
+    rhoXX = df.iloc[:, 2]
     return I, B, rhoXY, rhoXX
 
+
 def calculateSlope(B, rhoXY):
-    mask = (B <= 1.2) & (B >= 0) 
+    mask = (B <= 1.2) 
     B_cuttet = B[mask]
     rhoXY_cuttet = rhoXY[mask]
     linReg = linregress(B_cuttet, rhoXY_cuttet)
