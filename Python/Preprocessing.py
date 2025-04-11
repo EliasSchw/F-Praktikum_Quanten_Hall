@@ -96,7 +96,7 @@ def preprocessing(Messung):
     return processedData
 
 def plotHall():
-    data = getDatenreihe('Gate_minus_1V')
+    data = getDatenreihe('Gate_minus_1_5V')
     colors = np.linspace(0, 1, len(data['B']))
     scatter = plt.scatter(data['B'], data['rho_xy'], c=colors, cmap='viridis')
     plt.colorbar(scatter, label='Color Gradient')

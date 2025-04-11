@@ -48,7 +48,7 @@ def testPlot():
     plotter.save_and_open(filename='foo')
     
     
-testPlot()
+plot_15_1_025_v_Treppe()
 
 
 
