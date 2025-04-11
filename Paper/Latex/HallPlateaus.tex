@@ -4,20 +4,19 @@ The Hall resistivity $\rho_{\text{xy}}$ forms plateaus at
 \begin{align}
     \rho_{xy} = \frac{h}{\nu e^2} =: \frac{R_\text K}{\nu}
 \end{align}
-with the elementary charge $e$, the planc constant $h$. 
+with the elementary charge $e$ and the planc constant $h$. 
 The filling factor $\nu \in \mathbb N$ describes the number of occupied Landau levels.
-
 The goal of this section is to determine the von Klitzing constant $R_K$.
 Before reading off the plateaus, two errors have to be taken into account:
 the time delay and the different scales of the lock in amplifiers.
 To account for the time delay, 
 caused by the integration and perhhaps some additional internal delay of the lock in amplifiers,
-the three voltages of the lock in amplifiers are shifted backwards in time.
+the three voltages given by the lock in amplifiers are shifted backwards in time.
 Since the magnetic field B is ramped up and down between $0T$ and $9T$, 
 the constant shift in time can be chosen, s.t. both graphs match.
 To compensate for different scales $\alpha_i$, 
-the lock in amplifiers $1$ and $2$ measuring $U_xy$ and $U_I$ are exchanged and the measurement at $1.4K$ is repeated.
-Using
+the lock in amplifiers $1$ and $2$ measuring $U_\text{xy}$ and $U_\text I$ are exchanged and the measurement at $1.4\,K$ is repeated.
+If $U$ and $I$ are the real values,
 \begin{align}
     R_{\text K,1} = \frac{U_{\text{xy}, 1}}{I_2} = \frac{\alpha_1 U}{\alpha_2 I}\\
     R_{\text K,2} = \frac{U_{\text{xy}, 2}}{I_1} = \frac{\alpha_2 U}{\alpha_1 I}
@@ -31,8 +30,10 @@ Only $\rho_{\text{xy}}$ is corrected with the factor $\alpha$,
 since no additional measurement with exchanged lock in amplifiers was performed.
 In principle, $\rho_{\text{xx}}$ could be corrected in the same manner.
 \\
-To obtain $R_\text K = \rho_{\text{xy}}$, the average value of the plateaus is taken. 
-The $R_\text K$ are presented in tab. \ref{tab:plateau_values}.
+To obtain $R_\text K$, the average values of the resistivities of the plateaus is taken.
+The transversal resistivity $\rho_{\text{xy}}$ of the plateaus and the resulting $R_\text K$ are presented in 
+tab. \ref{tab:plateau_values} and tab. \ref{tab:Klitzing} respectively.
+The error is obtained by propagating the accuracy of the lock in amplifiers.
 \begin{table}[h!]
     \centering
     \begin{tabular}{c|c c c c}
@@ -43,13 +44,42 @@ The $R_\text K$ are presented in tab. \ref{tab:plateau_values}.
         4      & $\csname PlateauNr44.2K\endcsname$  & $\csname PlateauNr43K\endcsname$  & $\csname PlateauNr42.1K\endcsname$  & $\csname PlateauNr41.4K\endcsname$  \\ 
         5      & $\csname PlateauNr54.2K\endcsname$  & $\csname PlateauNr53K\endcsname$  & $\csname PlateauNr52.1K\endcsname$  & $\csname PlateauNr51.4K\endcsname$  \\ 
     \end{tabular}
-    \caption{$R_\text K$ for different temperatures and filling factors in $10^{4}\,\Omega$.}
+    \caption{Plateaus in Hall resistivity for different temperatures and filling factors in $k\Omega$.
+    The error is $1.4\%$.
+    }
     \label{tab:plateau_values}
 \end{table}
-
-
-
-
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c c c c}
+        $\nu$  & $4.2\,\text{K}$        & $3.0\,\text{K}$        & $2.1\,\text{K}$        & $1.4\,\text{K}$        \\ \hline
+        1      & $\csname PlateauMalNuNr14.2K\endcsname$  & $\csname PlateauMalNuNr13K\endcsname$  & $\csname PlateauMalNuNr12.1K\endcsname$  & $\csname PlateauMalNuNr11.4K\endcsname$  \\ 
+        2      & $\csname PlateauMalNuNr24.2K\endcsname$  & $\csname PlateauMalNuNr23K\endcsname$  & $\csname PlateauMalNuNr22.1K\endcsname$  & $\csname PlateauMalNuNr21.4K\endcsname$  \\ 
+        3      & $\csname PlateauMalNuNr34.2K\endcsname$  & $\csname PlateauMalNuNr33K\endcsname$  & $\csname PlateauMalNuNr32.1K\endcsname$  & $\csname PlateauMalNuNr31.4K\endcsname$  \\ 
+        4      & $\csname PlateauMalNuNr44.2K\endcsname$  & $\csname PlateauMalNuNr43K\endcsname$  & $\csname PlateauMalNuNr42.1K\endcsname$  & $\csname PlateauMalNuNr41.4K\endcsname$  \\ 
+        5      & $\csname PlateauMalNuNr54.2K\endcsname$  & $\csname PlateauMalNuNr53K\endcsname$  & $\csname PlateauMalNuNr52.1K\endcsname$  & $\csname PlateauMalNuNr51.4K\endcsname$  \\ 
+    \end{tabular}
+    \caption{$R_\text K$ for different temperatures and filling factors in $k\Omega$.
+    The error is $1.4\%$.
+    }
+    \label{tab:Klitzing}
+\end{table}
+To determine the von Klizing constant, measured at different temperatures, the average value for different $\nu$ is taken.
+The results are shown in tab \ref{tab:Klitzing2}.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c}
+        $T\,/\,K$  & $R_\text K \, / \, k\Omega$  \\ \hline
+        4.2      & $\csname Klitzing4.2K\endcsname$  \\ 
+        3.0      & $\csname Klitzing3K\endcsname$   \\ 
+        2.1      & $\csname Klitzing2.1K\endcsname$   \\ 
+        1.4      & $\csname Klitzing1.4K\endcsname$  \\ 
+    \end{tabular}
+    \caption{Von Klitzing constant $R_\text K$ measured at different temperatures.
+    }
+    \label{tab:Klitzing2}
+\end{table}
+The results match the exact defined value of $R_\text{K, exact} = 2.581280...$. 
 
 
 

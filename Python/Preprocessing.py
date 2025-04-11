@@ -1,7 +1,7 @@
 from Leseratte import einlesen
 import DataPlotter as plotter
 import matplotlib.pyplot as plt
-from macroswriter import writeLatexMacro
+from macroswriter import writeLatexMacro, writeLatexCSname
 import numpy as np
 from scipy.interpolate import interp1d
 from numpy import array
@@ -45,7 +45,9 @@ Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.9
                     }
                     
                     
-                    
+def writeTempMacros():
+    for name in ['4.2K', '3K', '2.1K', '1.4K']:
+        writeLatexCSname(f'tempFor{name}', Messungen_dict[name]['temp'], 'K', np.max([Messungen_dict[name]['temp_fehler'], 0.01 * Messungen_dict[name]['temp']]))
                   
 
 def getDatenreihe(nameMessung:str):
@@ -94,7 +96,7 @@ def preprocessing(Messung):
     return processedData
 
 def plotHall():
-    data = getDatenreihe('3K')
+    data = getDatenreihe('Gate_minus_1V')
     colors = np.linspace(0, 1, len(data['B']))
     scatter = plt.scatter(data['B'], data['rho_xy'], c=colors, cmap='viridis')
     plt.colorbar(scatter, label='Color Gradient')
@@ -178,5 +180,7 @@ def interpoliereFürLukas(data):
     }
     return averaged
 
-    
-getDatenreihe('3K')
+
+#plotHall()   
+#getDatenreihe('3K')
+#writeTempMacros()

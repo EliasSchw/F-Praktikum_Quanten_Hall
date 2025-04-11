@@ -49,32 +49,53 @@ def writeLatexMacro(macro_name:str, value:float, unit:str=None, error:float=None
         file.writelines(lines)
 
 
-def writeLatexCSname(macro_name:str, value:float, unit:str=None, error:float=None, digitsIfNoError:int = 4, filepath='Paper/Latex/macros.tex', noBrackets=False):
+def writeLatexCSname(macro_name:str, value:float, unit:str=None, error:float=None, digitsIfNoError:int = 4, filepath='Paper/Latex/macros.tex', noBrackets=False, ZehnerPotenz=True):
     """
     Writes or overrides LaTeX macros in the specified file.
     Rounds the value and error to the same order of magnitude (two digits of the error) and writes them in scientific notation.
     """
     
-    if error:
-        if error > value:
-            raise ValueError("Error cannot be larger than the value.")  
-        
-        value_order = int(f"{value:.1e}".split('e')[1])
-        error_order = int(f"{error:.1e}".split('e')[1])
-        error *= 10**-value_order
-        value *= 10**-value_order
-        valueStr = f"{value:.{value_order - error_order+1}f}"
-        errorStr = f"{error:.{value_order - error_order+1}f}"
+    if ZehnerPotenz:
+        if error:
+            if error > value:
+                raise ValueError("Error cannot be larger than the value.")  
+            value_order = int(f"{value:.1e}".split('e')[1])
+            error_order = int(f"{error:.1e}".split('e')[1])
+            error *= 10**-value_order
+            value *= 10**-value_order
+            valueStr = f"{value:.{value_order - error_order+1}f}"
+            errorStr = f"{error:.{value_order - error_order+1}f}"
 
-        macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr} \\pm {errorStr}"
+            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr} \\pm {errorStr}"
+        else:
+            value_order = int(f"{value:.1e}".split('e')[1])
+            value *= 10**-value_order
+            valueStr = f"{value:.{digitsIfNoError-1}f}"
+
+            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr}"
+        if not value_order == 0:
+            macro_content += f"\\right) \\cdot 10^{{{value_order}}}"
+        else:
+            macro_content += f"\\right)"
     else:
-        value_order = int(f"{value:.1e}".split('e')[1])
-        value *= 10**-value_order
-        valueStr = f"{value:.{digitsIfNoError-1}f}"
+        if error:
+            if error > value:
+                raise ValueError("Error cannot be larger than the value.")  
+            error_order = int(f"{error:.1e}".split('e')[1])
+            valueStr = f"{value:.{- error_order+1}f}"
+            errorStr = f"{error:.{ - error_order+1}f}"
 
-        macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr}"
-    if not value_order == 0:
-        macro_content += f"\\right) \\cdot 10^{{{value_order}}}"
+            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr} \\pm {errorStr}"
+        else:
+            valueStr = f"{value:.{digitsIfNoError-1}f}"
+
+            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr}"
+
+        
+            macro_content += f"\\right)"
+        
+        
+        
     if unit:
         macro_content += f"\\,\\text{{{unit}}}"
     macro_content += '}' + f"\n"
@@ -82,7 +103,7 @@ def writeLatexCSname(macro_name:str, value:float, unit:str=None, error:float=Non
     macro_content = macro_content.replace("_","")
     
     if noBrackets:
-         macro_content = macro_content.replace("\left(",'').replace('\right)','')
+         macro_content = macro_content.replace(r"\left(",'').replace(r'\right)','')
 
 
     # Read the existing file content

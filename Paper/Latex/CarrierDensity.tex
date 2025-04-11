@@ -1,0 +1,48 @@
+\section{Charge Carrier Density}
+\subsection{Charge Carrier Density via Shoubnikow-de Haas Effect}
+
+
+The Shoubnikow-de Haas Effect describes the oscillations of the longitudinal resistivity $\rho_{xx}$ with increasing magnetic field $B$.
+It can be explained with the equally spaced Landau levels moving up in energy, when $B$ increases.
+The charge carrier density $n_\text{SdH}$ is calculated via
+\begin{align}
+    n_\text{SdH} = \frac{e}{h\Delta}
+    \label{eq:chargeCarrierFourier}
+\end{align} 
+with the periodicity of oscillations $\Delta\left(\frac{1}{B}\right)$.
+To obtain the periodicity $\Delta$, the longitudinal resistivity $\rho^\prime_\text{xx}\left(B\right)=\rho_\text{xx}\left(\frac{1}{B}\right)$ is considered.
+Since the measured datapoints are eqally spaced in $B$ instead of $\frac{1}{B}$, an interpolation is performed.
+To precisely determine the periodidity of the oscillations, a discrete fast fourier transform is applied.
+A clear peak is visible, matching the read off estimated periodicity.
+To precisely find the peak, a gaussian is fitted onto the region and the peak value of the fit is used as $\Delta$.
+The error of the peak is estimated to be half the width of the gaussian.
+The Fourier transformed resistivity $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ for 
+$1.4K$ is depicted in \ref{fig:Fourier}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{../Images/FourierMitGausFür14K.png}
+    \caption{Fourier transform of the longitudinal resistivity 
+    $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ 
+    for $1.4K$ to determine the frequency of Shoubnikow-de Haas oscillations.
+    The peak is determined with a fit of a gaussian curve.
+    }
+    \label{fig:Fourier}
+\end{figure}
+The charge carrier densities calculated with \ref{eq:chargeCarrierFourier} are shown in tab. \ref{tab:n_sdh}.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c}
+        $T\,/\,K$  & $n_\text{SdH} \, / \, 10^{15}m^{-2}$  \\ \hline
+        4.2      & $\csname FourierN4.2K\endcsname$  \\ 
+        3.0      & $\csname FourierN3K\endcsname$   \\ 
+        2.1      & $\csname FourierN2.1K\endcsname$   \\ 
+        1.4      & $\csname FourierN1.4K\endcsname$  \\ 
+    \end{tabular}
+    \caption{Charge carrier density determined with the frequency of the Shoubnikow-de Haas oscilations.
+    }
+    \label{tab:n_sdh}
+\end{table}
+
+
+
+
