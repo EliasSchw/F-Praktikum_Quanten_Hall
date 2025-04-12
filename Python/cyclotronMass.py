@@ -3,14 +3,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from ChargeCarrierDensity import slicingWithPandas
 from scipy import constants as const
-from macroswriter import writeLatexMacro
 from DataPlotter import save_and_open
 import DataPlotter as dp
+from macroswriter import writeLatexCSname
 fit_B_min = 0.5
 fit_B_max = 1.5
 plot_B_min = 0.5
 plot_B_max = 1.5
 x_value = 1.052
+
 
 # Funktion für den Fit
 def fit_function(B, c1, c2):
@@ -99,6 +100,12 @@ def calculate_cyclotron_mass(BPeak, BPeakFehler, Amplitudes, AmplitudesFehler):
     cyclotron21 = cyclotronElectron21 * const.m_e
     return cyclotron15, cyclotron21, cyclotron15Error, cyclotron21Error
 
+def writeCyclotronMacros(cyclotron15, cyclotron21, cyclotron15Error, cyclotron21Error):
+    """
+    Schreibt die Makros für die Zyklotronmassen in die Datei macros.tex.
+    """
+    writeLatexCSname('cyclotron15', cyclotron15 / const.m_e, r'', cyclotron15Error / const.m_e, noBrackets=True)
+    writeLatexCSname('cyclotron21', cyclotron21 / const.m_e, r'', cyclotron21Error / const.m_e, noBrackets=True)
 
 # Funktion zur Extraktion der Amplitudenwerte
 
@@ -137,7 +144,7 @@ def main():
     sigmaXXTable, BTable = prepare_data(Datenreihen)
 
     # Vorgabe des x-Werts (B-Wert)
-    
+    x_value = 1.052
 
     # Amplituden für den gegebenen x-Wert extrahieren
     Amplitudes, selected_points = get_amplitudes_for_x(x_value, BTable, sigmaXXTable)
@@ -151,13 +158,15 @@ def main():
     cyclotron15, cyclotron21, cyclotron15Error, cyclotron21Error = calculate_cyclotron_mass(BPeak, BPeakFehler, Amplitudes, AmplitudesFehler)
 
     # Ergebnisse ausgeben
-    print(f"Zyklotronmasse bei 1.5K: {(cyclotron15/const.m_e):.3e} ± {(cyclotron15Error/const.m_e):.3e} kg")
-    print(f"Zyklotronmasse bei 2.1K: {(cyclotron21/const.m_e):.3e} ± {(cyclotron21Error/const.m_e):.3e} kg")
+    print(f"Zyklotronmasse bei 1.5K: {(cyclotron15/const.m_e):.3e} ± {(cyclotron15Error/const.m_e):.3e} m_e")
+    print(f"Zyklotronmasse bei 2.1K: {(cyclotron21/const.m_e):.3e} ± {(cyclotron21Error/const.m_e):.3e} m_e")
+
+    # Makros schreiben
+    writeCyclotronMacros(cyclotron15*10**2, cyclotron21*10**2, cyclotron15Error*10**2, cyclotron21Error*10**2)
 
     # Plot der Differenzen mit markierten Punkten
     plot_differences_with_points(Datenreihen, BTable, sigmaXXTable, farben, selected_points)
     plot_data_and_fits_with_points(Datenreihen, BTable, sigmaXXTable, farben)
-# Skript ausführen
 
 if __name__ == "__main__":
     main()
