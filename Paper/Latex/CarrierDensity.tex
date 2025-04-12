@@ -1,7 +1,29 @@
-\section{Charge Carrier Density}
-\subsection{Charge Carrier Density via Shoubnikow-de Haas Effect}
+\section{Charge carrier density}
+In the following section, the determination of the charge carrier density $n$ is described in three different ways.
+All determined charge carrier densities are shown in tab.\,\ref{tab:ns}.
+\subsection{Charge carrier density extrapolation from the classical Hall effect}
+In the classical Hall effect, the charge carrier density $n_\text{clHall}$ is given by 
+\begin{align}
+    n_\text{clHall} = \frac{B}{\rho_{xy}e} = \frac{1}{e \cdot m_\text{slope}}.
+    \label{eq:chargeCarrierClassicalHall}
+\end{align}
+In our experiment, the classical Hall effect is expected to be seen at low magnetic fields.
+Like seen in fig.\,\ref{} the slope of the Hall resistivity shows a linear behaviour for small magnetic fields.
+The charge carrier density is calculated by determining the slope $m_\text{slope}$ of the linear regime using a linear regression.
+The error is calculated by gaussian error propagation of the error of $m_\text{slope}$ obtained from the linear regression.
 
+\subsection{Charge carrier density via Hall plateaus}
+In the quantum Hall regime, the charge carrier density can be calculated using the Hall plateaus with the corresponding filling factors $\nu$.
+Therefore $n_\nu$ can be calculated using eq.\,\ref{eq:nnu}
+\begin{align}
+    n_\nu = \frac{\nu B_\nu e}{h}
+\end{align}
+with $B_\nu$ being the mean magnetic field at the plateau for the corresponding filling factor.
+$B_\nu$ is determined by manually reading off the midpoint of each plateau, with the error of $B_\nu$ being
+the uncertainty of the reading. For higher filling factors, the plateaus are narrower and the error of the reading is getting slightly smaller.
+The error of $n_\nu$ is then calculated by gaussian error propagation.
 
+\subsection{Charge carrier density via Shoubnikow-de Haas Effect}
 The Shoubnikow-de Haas Effect describes the oscillations of the longitudinal resistivity $\rho_{xx}$ with increasing magnetic field $B$.
 It can be explained with the equally spaced Landau levels moving up in energy, when $B$ increases.
 The charge carrier density $n_\text{SdH}$ is calculated via
@@ -31,16 +53,15 @@ $1.4K$ is depicted in \ref{fig:Fourier}.
 The charge carrier densities calculated with \ref{eq:chargeCarrierFourier} are shown in tab. \ref{tab:n_sdh}.
 \begin{table}[h!]
     \centering
-    \begin{tabular}{c|c}
-        $T\,/\,K$  & $n_\text{SdH} \, / \, 10^{15}m^{-2}$  \\ \hline
-        4.2      & $\csname FourierN4.2K\endcsname$  \\ 
-        3.0      & $\csname FourierN3K\endcsname$   \\ 
-        2.1      & $\csname FourierN2.1K\endcsname$   \\ 
-        1.4      & $\csname FourierN1.4K\endcsname$  \\ 
+    \begin{tabular}{c|c|c|c}
+        $T\,/\,K$  & $n_\text{cl}\, / \, 10^{15}$ & $n_\nu\, / \, 10^{15}$ & $n_\text{SdH} \, / \, 10^{15}$ \\ \hline
+        4.2     & $\csname nEins4.2K\endcsname$ & $\csname nZwei4.2K\endcsname$ & $\csname FourierN4.2K\endcsname$   \\ 
+        3.0     & $\csname nEins3K\endcsname$ & $\csname nZwei3K\endcsname$ & $\csname FourierN3K\endcsname$    \\ 
+        2.1     & $\csname nEins2.1K\endcsname$ & $\csname nZwei2.1K\endcsname$ & $\csname FourierN2.1K\endcsname$    \\ 
+        1.4     & $\csname nEins1.4K\endcsname$ & $\csname nZwei1.4K\endcsname$ & $\csname FourierN1.4K\endcsname$  \\ 
     \end{tabular}
-    \caption{Charge carrier density determined with the frequency of the Shoubnikow-de Haas oscilations.
-    }
-    \label{tab:n_sdh}
+    \caption{Charge carrier density determined with the frequency of the Shoubnikow-de Haas oscilations.}
+    \label{tab:ns}
 \end{table}
 
 

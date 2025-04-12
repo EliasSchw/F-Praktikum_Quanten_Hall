@@ -5,6 +5,7 @@ from macroswriter import writeLatexMacro
 import pandas as pd
 from scipy.stats import linregress
 from scipy import constants as const
+from macroswriter import writeLatexCSname
 
 Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
 def slicingWithPandas(Datenreihen):
@@ -82,23 +83,21 @@ def calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures, scale_factor=10*
 
     return mean_n_by_temperature, mean_n_error_by_temperature
 
-def writeN1Macros(nTable, nErrorTable, temperatures):
+def writeCSMacros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures):
     """
-    Schreibt die Makros für n1-Werte in die Datei macros.tex.
+    Schreibt die Makros für n2-Werte in die Datei macros.tex mit der Methode writeCSMacros.
     """
     for i in range(len(temperatures)):
-        macro_name = f"nEins_{temperatures[i].replace('.', '').replace('K', '')}"  
-        writeLatexMacro(macro_name, nTable[i], unit=r"\text{m}^{-2}", error=nErrorTable[i],
-                        filepath="Paper/Latex/macros.tex")
+        macro_name = f"nEins_{temperatures[i]}"
+        writeLatexCSname(macro_name, nTable[i], r"\text{m}^{-2}", nErrorTable[i], noBrackets=True)
 
-def writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures):
+def writeCSMacrosForN2(mean_n_by_temperature, mean_n_error_by_temperature, temperatures):
     """
-    Schreibt die Makros für n2-Werte in die Datei macros.tex.
+    Schreibt die Makros für N2-Werte in die Datei macros.tex mit der Methode writeCSMacros.
     """
-    for i in range(len(temperatures)): 
-        macro_name = f"nZwei_{temperatures[i].replace('.', '').replace('K', '')}"
-        writeLatexMacro(macro_name, mean_n_by_temperature[i], unit=r"\text{m}^{-2}", error=mean_n_error_by_temperature[i],
-                        filepath="Paper/Latex/macros.tex")
+    for i in range(len(temperatures)):
+        macro_name = f"nZwei_{temperatures[i]}"
+        writeLatexCSname(macro_name, mean_n_by_temperature[i], r"\text{m}^{-2}", mean_n_error_by_temperature[i], noBrackets=True)
 
 # --- Datenbasis ---
 
@@ -125,7 +124,10 @@ mean_n_by_temperature, mean_n_error_by_temperature = calculate_mean_n_and_error(
 
 nTable, nErrorTable, BTable, rhoXYTable, slopeTable, rhoXXTable = getN1(temperatures)
 
-# Makros schreiben
-writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
-writeN1Macros(nTable, nErrorTable, temperatures)
+# Makros schreiben mit writeCSMacros
+writeCSMacros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
+
+# --- Makros schreiben mit writeCSMacros für N2 ---
+writeCSMacrosForN2(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
+
 
