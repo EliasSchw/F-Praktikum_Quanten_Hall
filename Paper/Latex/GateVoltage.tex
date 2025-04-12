@@ -35,11 +35,6 @@ The longitudinal component has vanishing resistivity for the values of $B$, for 
 After further increasing $B$, \rhall temporarily shows negative values.
 This could be explained by p-type conduction, since the holes with positive charges, 
 moving in the other direction are deflected in the same direction as electrons, resulting in a change of sign in \rhall.
-
-
-
-
-
 Since the valence band typically has a lower curvature near the band gap, the holes typically have a larger effective mass $m^\star$.
 The cyclotron frequency
 \begin{align}
@@ -47,30 +42,27 @@ The cyclotron frequency
 \end{align}
 an therefore the energy (difference) of the Laudau levels
 \begin{align}
-    \varepsilon = \hbar \omega_c \left(\frac{1}{2} + n_\textL \right)    
+    \epsilon = \hbar \omega_c \left(\frac{1}{2} + n_\text L \right)
 \end{align}
-is smaller.
+is smaller for the holes.
 This makes the Landau levels harder to seperate. 
 Larger $B$ would be required to accieve the same results as with electrons.
+\rhall of $U_\text{gate} = -1.5V$ has a negative slope for small $B$.
+This is interpreted as having p-type conduction, resulting in a negative charge carrier density.
+Notice that the transversal conductivity does not vanish for $B=0$.
+This could be a sign of an anisotropy of the material.
+It is unclear, why this shift only applies for holes.
+\rhall for $U_\text{gate} = -1.5V$ does not reach the von Klitzing constant.
+It is assumed, that even smaller $U_\text{gate}$ will show plateaus. 
 
-
-
-
-
-
-
-
-Extrapolating $n$ for lower $U_\text{gate}$ gives an estimate for the charge carrier density (see fig. \ref{})
+Extrapolating $n$ for lower $U_\text{gate}$ gives an estimate for the charge carrier density (see fig. \ref{fig:extrapolating})
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.45\textwidth]{../Images/differentGateVoltagesQHE.png}
+    \includegraphics[width=0.45\textwidth]{../Images/extrapolatingN.png}
     \caption{??}
-    \label{fig:differentGateVoltagesQHE}
+    \label{fig:extrapolating}
 \end{figure}
-
-
-
-
-However, this behaviour is expected     
+To obtain a charge carrier density of holes comparable to the charge carrier density of electrons for $U_\text{gate} = -0.25\,V$,
+a gate voltage of $U_\text{gate} \approx -2\,V$ is required.
 
 
