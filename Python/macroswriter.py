@@ -66,13 +66,13 @@ def writeLatexCSname(macro_name:str, value:float, unit:str=None, error:float=Non
             valueStr = f"{value:.{value_order - error_order+1}f}"
             errorStr = f"{error:.{value_order - error_order+1}f}"
 
-            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr} \\pm {errorStr}"
+            macro_content = f"\\expandafter\\def\\csname {macro_name}\\endcsname{{\\left({valueStr} \\pm {errorStr}"
         else:
             value_order = int(f"{value:.1e}".split('e')[1])
             value *= 10**-value_order
             valueStr = f"{value:.{digitsIfNoError-1}f}"
 
-            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr}"
+            macro_content = f"\\expandafter\\def\\csname {macro_name}\\endcsname{{\\left({valueStr}"
         if not value_order == 0:
             macro_content += f"\\right) \\cdot 10^{{{value_order}}}"
         else:
@@ -85,11 +85,11 @@ def writeLatexCSname(macro_name:str, value:float, unit:str=None, error:float=Non
             valueStr = f"{value:.{- error_order+1}f}"
             errorStr = f"{error:.{ - error_order+1}f}"
 
-            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr} \\pm {errorStr}"
+            macro_content = f"\\expandafter\\def\\csname {macro_name}\\endcsname{{\\left({valueStr} \\pm {errorStr}"
         else:
             valueStr = f"{value:.{digitsIfNoError-1}f}"
 
-            macro_content = f"\expandafter\def\csname {macro_name}\endcsname{{\\left({valueStr}"
+            macro_content = f"\\expandafter\\def\\csname {macro_name}\\endcsname{{\\left({valueStr}"
 
         
             macro_content += f"\\right)"
@@ -115,7 +115,7 @@ def writeLatexCSname(macro_name:str, value:float, unit:str=None, error:float=Non
 
     # Remove existing macro with the same name
     lines = [line for line in lines if not line.strip().startswith(f"\\newcommand{{\\{macro_name.replace('_','')}}}")] 
-    lines = [line for line in lines if not line.strip().startswith(f"\expandafter\def\csname {macro_name.replace('_','')}")] 
+    lines = [line for line in lines if not line.strip().startswith(f"\\expandafter\\def\\csname {macro_name.replace('_','')}")] 
 
     # Append the new macro
     lines.append(macro_content)
