@@ -1,7 +1,7 @@
 from Preprocessing import getDatenreihe
 import matplotlib.pyplot as plt
 import numpy as np
-from macroswriter import writeLatexMacro
+from macroswriter import writeLatexCSname
 import pandas as pd
 from scipy.stats import linregress
 from scipy import constants as const
@@ -46,16 +46,11 @@ def calculate_sigmaXX(Datenreihen):
         I, B, rhoXY, rhoXX = slicingWithPandas(datenreihe)
         indexNearestToZero = np.argmin(np.abs(B))
         rhoXX_near_zero = rhoXX[indexNearestToZero]
-        rhoXX_error = 0.02 * rhoXX_near_zero  # 1% Fehlerannahme
+        rhoXX_error = (0.01)*np.sqrt(2) * rhoXX_near_zero  # 1% Fehlerannahme
         sigmaXX_near_zero = 1 / rhoXX_near_zero
         sigmaXX_error = sigmaXX_near_zero * (rhoXX_error / rhoXX_near_zero)  # Gaußsche Fehlerfortpflanzung
         sigmaXXatBzero.append(sigmaXX_near_zero)
         sigmaXXErrorAtBzero.append(sigmaXX_error)
-
-    # Ergebnisse in LaTeX-Makros schreiben
-    for idx, datenreihe in enumerate(Datenreihen):
-        macro_name = f"sigmaXX_Bzero_{datenreihe.replace('.', '').replace('K', '')}"
-        writeLatexMacro(macro_name, sigmaXXatBzero[idx], unit="S", error=sigmaXXErrorAtBzero[idx])
 
     return sigmaXXatBzero, sigmaXXErrorAtBzero
 
@@ -74,10 +69,7 @@ def calculate_RHall(nTable, nErrorTable, Datenreihen):
         RHallTable.append(RHall)
         RHallErrorTable.append(RHallError)
 
-    # Ergebnisse in LaTeX-Makros schreiben
-    for idx, datenreihe in enumerate(Datenreihen):
-        macro_name = f"RHall_{datenreihe.replace('.', '').replace('K', '')}"
-        writeLatexMacro(macro_name, RHallTable[idx], unit="\\Omega\\,\\text{m}", error=RHallErrorTable[idx])
+   
 
     return RHallTable, RHallErrorTable
 
@@ -98,10 +90,7 @@ def calculate_my(RHallTable, RHallErrorTable, sigmaXXatBzero, sigmaXXErrorAtBzer
         myTable.append(my)
         myErrorTable.append(myError)
 
-    # Ergebnisse in LaTeX-Makros schreiben
-    for idx, datenreihe in enumerate(Datenreihen):
-        macro_name = f"my_{datenreihe.replace('.', '').replace('K', '')}"
-        writeLatexMacro(macro_name, myTable[idx], unit="\\text{m}^2/\\text{Vs}", error=myErrorTable[idx])
+    
 
     return myTable, myErrorTable
 
@@ -118,6 +107,11 @@ RHallTable, RHallErrorTable = calculate_RHall(nTable, nErrorTable, Datenreihen)
 # Berechnung von my
 myTable, myErrorTable = calculate_my(RHallTable, RHallErrorTable, sigmaXXatBzero, sigmaXXErrorAtBzero, Datenreihen)
 
+for i in range(len(Datenreihen)):
+ 
+    writeLatexCSname(f"simaXX_{Datenreihen[i]}", value = sigmaXXatBzero[i]*10**3, error= sigmaXXErrorAtBzero[i]*10**3, noBrackets=True)
+    writeLatexCSname(f'RHall_{Datenreihen[i]}', value = RHallTable[i]/10**3, error= RHallErrorTable[i]/10**3, noBrackets=True)
+    writeLatexCSname(f'my_{Datenreihen[i]}', value = myTable[i] /10, error= myErrorTable[i]/10, noBrackets=True)
 
 
 

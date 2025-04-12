@@ -18,7 +18,7 @@ def slicingWithPandas(Datenreihen):
 
 
 def calculateSlope(B, rhoXY):
-    mask = (B <= 1.2) 
+    mask = (B <= 1) 
     B_cuttet = B[mask]
     rhoXY_cuttet = rhoXY[mask]
     linReg = linregress(B_cuttet, rhoXY_cuttet)
@@ -89,7 +89,7 @@ def writeCSMacros(mean_n_by_temperature, mean_n_error_by_temperature, temperatur
     """
     for i in range(len(temperatures)):
         macro_name = f"nEins_{temperatures[i]}"
-        writeLatexCSname(macro_name, nTable[i], r"\text{m}^{-2}", nErrorTable[i], noBrackets=True)
+        writeLatexCSname(macro_name, value=nTable[i], error = nErrorTable[i], noBrackets=True, )
 
 def writeCSMacrosForN2(mean_n_by_temperature, mean_n_error_by_temperature, temperatures):
     """
@@ -97,7 +97,7 @@ def writeCSMacrosForN2(mean_n_by_temperature, mean_n_error_by_temperature, tempe
     """
     for i in range(len(temperatures)):
         macro_name = f"nZwei_{temperatures[i]}"
-        writeLatexCSname(macro_name, mean_n_by_temperature[i], r"\text{m}^{-2}", mean_n_error_by_temperature[i], noBrackets=True)
+        writeLatexCSname(macro_name, value = mean_n_by_temperature[i], error = mean_n_error_by_temperature[i], noBrackets=True)
 
 # --- Datenbasis ---
 
