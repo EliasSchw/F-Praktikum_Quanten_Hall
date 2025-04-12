@@ -181,7 +181,7 @@ def plotHalls():
     plt.xlabel('Magnetic Field B')
     plt.ylabel('Hall Resistivity ρ_xy')
     plt.title('Hall Resistivity vs Magnetic Field')
-    plt.show()
+    #plt.show()
 
 def interpoliereFürLukas(data):
     max_index = np.argmax(data['B'])
