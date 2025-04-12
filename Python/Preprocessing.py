@@ -205,7 +205,7 @@ def interpoliereFürLukas(data):
     }
     return averaged
 
-plotrhoFürKaputteKurve()
+#plotrhoFürKaputteKurve()
 #plotHall()   
 #getDatenreihe('3K')
 #writeTempMacros()

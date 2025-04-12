@@ -61,7 +61,7 @@ def plot_differences_with_points(Datenreihen, BTable, sigmaXXTable, farben, sele
     plt.tick_params(axis='both', which='major', labelsize=12, direction = 'in')
     plt.legend(fontsize = 12)
     plt.grid()
-    save_and_open('reducedSigma')
+    save_and_open(filename='reducedSigma')
 
 # Funktion zur Berechnung der Zyklotronmasse
 def calculate_cyclotron_mass(BPeak, BPeakFehler, Amplitudes, AmplitudesFehler):
@@ -122,15 +122,15 @@ def plot_data_and_fits_with_points(Datenreihen, BTable, sigmaXXTable, farben):
         sigmaXX_fit = fit_function(B_fit, *popt)
         plt.plot(B_fit, sigmaXX_fit * 10**5, label=f"fit ({datenreihe})", color=farben[idx], linestyle="--", linewidth=1.5)
 
-    plt.xlabel("$B / T$", fontsize = 16)
-    plt.ylabel("$\sigma_{XX} / S$", fontsize = 16)
+    plt.xlabel(r"$B / T$", fontsize = 16)
+    plt.ylabel(r"$\sigma_{\text{xx}} / S$", fontsize = 16)
     plt.xlim(1,1.5)
     plt.ylim(1,3.5)
     plt.legend(fontsize = 12)
     plt.tick_params(axis='both', which='major', labelsize=12, direction = 'in')
     plt.grid()
     plt.tight_layout()
-    save_and_open('sigmaWithFit')
+    save_and_open(filename='sigmaWithFit')
 # Hauptfunktion
 def main():
     Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
@@ -165,6 +165,7 @@ def main():
     plot_differences_with_points(Datenreihen, BTable, sigmaXXTable, farben, selected_points)
     plot_data_and_fits_with_points(Datenreihen, BTable, sigmaXXTable, farben)
 # Skript ausführen
+
 if __name__ == "__main__":
     main()
 

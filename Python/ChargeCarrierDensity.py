@@ -156,18 +156,6 @@ plot_ns()
 
 
 
-
-
-
-
-
-
-
-
-
-
-'''
-
 # --- Berechnung ---
 
 mean_n_by_temperature, mean_n_error_by_temperature = calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures)
