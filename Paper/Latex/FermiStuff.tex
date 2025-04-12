@@ -1,0 +1,29 @@
+\section{Fermi wave vector, Fermi energy and Fermi velocity}
+To determine all Fermi relatied values, firstly the Fermi wave vector $k_\text{F}$ is calculated with eq\,\ref{eq:kFermi}.
+\begin{align}
+    k_\text{F}=\sqrt{2\pi n_\text{slope}} \label{eq:kFermi}
+\end{align}
+After that the Fermi energy $E_\text{F}$ can be calculated with the obtained wave vector and the cyclotron mass as given in eq.\,\ref{eq:EFermi}.
+\begin{align}
+    E_\text{F}=\frac{\hbar^2k_\text{F}^2}{2m_\text{c}} \label{eq:EFermi}
+\end{align}
+Lastly, the Fermi velocity $v_\text{F}$ can be calculated with eq.\,\ref{eq:vFermi}.
+\begin{align}
+    v_\text{F}=\frac{\hbar k_\text{F}}{m_\text{c}} \label{eq:vFermi}
+\end{align}
+The results are shown in tab.\,\ref{tab:FermiValues}.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        \hline\hline
+        $T\,\text{K}$ & $k_\text{F}\cdot10^{8}\,\text{m}^{-1}$ & $E_\text{F}\cdot10^{-2}\,\text{eV}$ & $v_\text{F}\cdot10^{5}\,\text{m/s}$ \\\hline
+        $1.4$ & $\csname kFermi1.4K\endcsname$ & $\csname EFermi1.4K\endcsname$ & $\csname vFermi1.4K\endcsname$ \\
+        $2.1$ & $\csname kFermi2.1K\endcsname$ & $\csname EFermi2.1K\endcsname$ & $\csname vFermi2.1K\endcsname$ \\
+        $3$ & $\csname kFermi3K\endcsname$ & $\csname EFermi3K\endcsname$ & $\csname vFermi3K\endcsname$ \\
+        $4.2$ & $\csname kFermi4.2K\endcsname$ & $\csname EFermi4.2K\endcsname$ & $\csname vFermi4.2K\endcsname$ \\
+        \hline
+        \hline
+        
+    \end{tabular}
+\end{table}
+The errors are calculated using gaussian error propagation.

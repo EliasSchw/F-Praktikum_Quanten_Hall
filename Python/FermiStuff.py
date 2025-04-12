@@ -6,15 +6,10 @@ from scipy import constants as const
 from scipy.stats import linregress
 from Preprocessing import getDatenreihe
 import pandas as pd
-from macroswriter import writeLatexMacro
+from macroswriter import writeLatexCSname
 
-BPeak = 1.05
-BPeakFehler = 0.01
-Amplitudes = np.array([1.55, 1.90, 2.21, 2.45]) * 10**-6
-AmplitudesFehler = Amplitudes * 0.1
-cyclotron15, cyclotron21, cyclotron15Error, cyclotron21Error  = calculate_cyclotron_mass(BPeak, BPeakFehler, Amplitudes, AmplitudesFehler)
-Mc = [cyclotron15, cyclotron21, cyclotron15, cyclotron21]
-McError = [cyclotron15Error, cyclotron21Error, cyclotron15Error, cyclotron21Error]
+Mc = [2.820e-02*const.m_e, 2.272e-02*const.m_e, 2.820e-02*const.m_e, 2.272e-02*const.m_e]
+McError = [9.757e-03*const.m_e, 7.009e-03*const.m_e, 9.757e-03*const.m_e, 7.009e-03*const.m_e]
 Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
 def slicingWithPandas(Datenreihen):
     df = pd.DataFrame.from_dict(getDatenreihe(Datenreihen))
@@ -80,10 +75,12 @@ for i, datenreihe in enumerate(Datenreihen):
     )
     vFermiFehlerTable.append(vFermiFehler)
 
-    # Schreiben der Ergebnisse in LaTeX-Makros
-    writeLatexMacro(f"kFermi_{datenreihe.replace('.', '_')}", k, r"\text{m}^{-1}", kError)
-    writeLatexMacro(f"EFermi_{datenreihe.replace('.', '_')}", EFermi, "eV", EFermiFehler)
-    writeLatexMacro(f"vFermi_{datenreihe.replace('.', '_')}", vFermi, "m/s", vFermiFehler)
+ 
+    writeLatexCSname(f"kFermi{Datenreihen[i]}", value = k/10**8, error= kError/10**8, noBrackets=True)
+    writeLatexCSname(f'EFermi{Datenreihen[i]}', value = EFermi*10**2, error= EFermiFehler*10**2, noBrackets=True)
+    writeLatexCSname(f'vFermi{Datenreihen[i]}', value = vFermi/10**5, error= vFermiFehler/10**5, noBrackets=True)
+
+
 
     # Ausgabe der Ergebnisse in der Konsole
     print(f"{datenreihe}:")
