@@ -123,10 +123,36 @@ def plotrhoFürKaputteKurve():
     plt.xlabel(r'$B\,/\,T$')
     plt.ylabel(r'$\rho\,/\,k\Omega$')
     plotter.fancyGraph()
-    plt.show()
     plotter.save_and_open(filename='kaputteKurvenGateV')
     
+def plotBeispielBildVomAnfang():
+    data1 = getDatenreihe('1.4K')
+    B = np.array(data1['B'])
+    rho_xx = np.array(data1['rho_xx'])
+    rho_xy =np.array(data1['rho_xy'])
+
+    plt.plot(B, 5*rho_xx/1000, label=r'$5 \cdot \rho_\text{xx}$')
+    plt.plot(B, rho_xy/1000, label=r'$\rho_\text{xy}$')
+        
+    plt.xlabel(r'$B\,/\,T$')
+    plt.ylabel(r'$\rho\,/\,k\Omega$')
+    plotter.fancyGraph()
+    plotter.save_and_open(filename='BeispielBildVomAnfang')
     
+def plotBeatingPattern():
+    data1 = getDatenreihe('Gate_1_5V')
+    B = np.array(data1['B'])
+    rho_xx = np.array(data1['rho_xx'])
+
+    plt.plot(B, rho_xx)
+    plt.xlim(1,4)
+    plt.ylim(0,100)
+        
+    plt.xlabel(r'$B\,/\,T$')
+    plt.ylabel(r'$\rho\,/\,k\Omega$')
+    plotter.fancyGraph()
+    plotter.save_and_open(filename='beatingPattern')
+
     
 def plotHalls():
     data1 = getDatenreihe('4.2K')    
@@ -206,6 +232,9 @@ def interpoliereFürLukas(data):
     }
     return averaged
 
+
+plotBeispielBildVomAnfang()
+#plotBeatingPattern()
 #plotrhoFürKaputteKurve()
 #plotHall()   
 #getDatenreihe('3K')
