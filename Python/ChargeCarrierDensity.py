@@ -5,6 +5,7 @@ from macroswriter import writeLatexMacro
 import pandas as pd
 from scipy.stats import linregress
 from scipy import constants as const
+import DataPlotter as plotter
 
 Datenreihen = ['4.2K', '3K', '2.1K', '1.4K']
 def slicingWithPandas(Datenreihen):
@@ -119,6 +120,55 @@ Bn2Error = np.array([[0.1, 0.1, 0.1, 0.1],
                      [0.05, 0.05, 0.05, 0.05],  
                      [0.01, 0.01, 0.01, 0.01]])
 
+
+
+#Elias
+
+def plot_ns():
+    gates=['1.4K', 'Gate_minus_1_5V', 'Gate_minus_1V', 'Gate_1V', 'Gate_1_5V']
+    #gates=['1.4K',  'Gate_1V', 'Gate_1_5V']
+
+    nTable, nErrorTable, BTable, rhoXYTable, slopeTable, rhoXXTable = getN1(gates)
+    datenreihen = [getDatenreihe(name) for name in gates]
+    plt.scatter([datenreihe['U_gate'] for datenreihe in datenreihen], nTable)
+    plt.xlabel(r'$U_\text{gate}\,/\,V$')
+    plt.ylabel(r'$n / 10^{15}\,m^2$')
+    plt.gca().invert_xaxis()
+    
+    # Perform linear fit
+    U_gate = np.array([datenreihe['U_gate'] for datenreihe in datenreihen])
+    nTable = np.array(nTable)
+    slope, intercept, _, _, _ = linregress(U_gate, nTable)
+
+    # Generate fit line
+    U_gate_fit = np.linspace(-2, max(U_gate), 100)
+    n_fit = slope * U_gate_fit + intercept
+
+    # Plot the fit line
+    plt.plot(U_gate_fit, n_fit, label=f'Linear Fit: $n = {slope:.2e} U_{{gate}} + {intercept:.2e}$', color='red')
+    plt.legend()
+    plotter.fancyGraph()  
+    plotter.save_and_open()
+
+
+plot_ns()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+
 # --- Berechnung ---
 
 mean_n_by_temperature, mean_n_error_by_temperature = calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures)
@@ -128,4 +178,4 @@ nTable, nErrorTable, BTable, rhoXYTable, slopeTable, rhoXXTable = getN1(temperat
 # Makros schreiben
 writeN2Macros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
 writeN1Macros(nTable, nErrorTable, temperatures)
-
+'''

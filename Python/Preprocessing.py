@@ -7,6 +7,7 @@ from scipy.interpolate import interp1d
 from numpy import array
 
 
+
 '''
 Tasks:
 
@@ -93,15 +94,39 @@ def preprocessing(Messung):
         processedData['rho_xy'] = [rho_xy * alpha for rho_xy in processedData['rho_xy']]
     
     processedData = interpoliereFürLukas(processedData)
+    processedData['U_gate'] = Messung['U_gate']
     return processedData
 
 def plotHall():
     data = getDatenreihe('Gate_minus_1_5V')
     colors = np.linspace(0, 1, len(data['B']))
-    scatter = plt.scatter(data['B'], data['rho_xy'], c=colors, cmap='viridis')
-    plt.colorbar(scatter, label='Color Gradient')
-    plt.show()
+    plt.scatter(data['B'], data['rho_xy'], label=r'$\rho_\text{xy}$')
+    plt.scatter(data['B'], data['rho_xx'], label=r'$\rho_\text{xx}$')
+    
+    plt.xlabel('B/T')
+    plt.ylabel(r'$\rho$')
+    plotter.fancyGraph()
+    plotter.save_and_open()
+    
+def plotrhoFürKaputteKurve():
+    data1 = getDatenreihe('Gate_minus_1V')
+    data2 = getDatenreihe('Gate_minus_1_5V')
 
+    plt.plot(data1['B'], np.array(data1['rho_xy'])/1000, label=r'$\rho_\text{xy, 1V}$', color='red')
+    plt.plot(data1['B'], np.array(data1['rho_xx'])/1000, label=r'$\rho_\text{xx, 1V}$', color ='red', linestyle='--')
+    
+    plt.plot(data2['B'], np.array(data2['rho_xy'])/1000, label=r'$\rho_\text{xy, 1.5V}$', color='blue')
+    plt.plot(data2['B'], np.array(data2['rho_xx'])/1000, label=r'$\rho_\text{xx, 1.5V}$', color ='blue', linestyle='--')
+    
+    
+    
+    plt.xlabel(r'$B\,/\,T$')
+    plt.ylabel(r'$\rho\,/\,k\Omega$')
+    plotter.fancyGraph()
+    plotter.save_and_open(filename='kaputteKurvenGateV')
+    
+    
+    
 def plotHalls():
     data1 = getDatenreihe('4.2K')    
     data2 = getDatenreihe('3K')
@@ -180,7 +205,7 @@ def interpoliereFürLukas(data):
     }
     return averaged
 
-
+plotrhoFürKaputteKurve()
 #plotHall()   
 #getDatenreihe('3K')
 #writeTempMacros()
