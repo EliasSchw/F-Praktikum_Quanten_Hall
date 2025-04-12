@@ -1,0 +1,42 @@
+\section{Cyclotron mass}
+For small magnetic fields and therefore $E_\text{F}>>\hbar\omega_\text{c}$, "within the framework of self-consistent Born approximation" \cite{Tasksheet}, 
+the cyclotron mass $m_\text{c}$ can be calculated according to \cite{Ando}.\\
+The longitudinal conductance $\sigma_\text{xx}$ \cite{Ando} can be rewritten into eq.\,\ref{eq:sigmaxxCyclotron}
+\begin{align}
+    \sigma_\text{xx}(B) = \sigma_\text{background}\cdot\left(1-A(B,T,\tau)\cos{\left(\frac{2\pi E_\text{F}}{\hbar\omega}\right)}\right)
+    \label{sigmaxxCyclotron}
+\end{align}
+with $\sigma_\text{background}=\frac{ne^2\tau}{m_\text{c}(1+\omega_\text{c}^2\tau^2)}$, $A(B,T,\tau)$ as the amplitude function and $E_\text{F}$ as the Fermi energy. 
+To isolate the oscillations from the background, $\sigma_\text{background}$ is fittet by eq.\,\ref{eq:fit}
+\begin{align}
+    \sigma_\text{background}(B) = \frac{a}{1+bB^2}
+    \label{eq:fit}
+\end{align}
+with $a$ and $b$ as fit parameters. The fit of $\sigma_\text{background}$ and $\sigma_\text{xx}$ is shown in fig.\,\ref{fig:fitCyclotron}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{../Images/sigmaWithFit.png}
+    \caption{Examplary fit of the background of the longitudinal conductance $\sigma_\text{xx}$ at various temperatures.}
+    \label{fig:fitCyclotron}
+\end{figure}
+The fit is done for magnetic fields in the range of $0.5\,\text{T}$ to $1.5\,\text{T}$, 
+where the magnetic field is still small enough so that eq.\,\ref{sigmaxxCyclotron} holds.
+By deviding $\sigma_\text{xx}$ by $\sigma_\text{background}$ and adding a $1$, the oscillations can be isolated which can
+be seen in fig.\,\ref{fig:oscillationsCyclotron}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{../Images/reducedSigma.png}
+    \caption{Isolated scillations of the longitudinal conductance $\sigma_\text{xx}$ at various temperatures.}
+    \label{fig:oscillationsCyclotron}
+\end{figure}
+This is in accordance with eq.\,\ref{sigmaxxCyclotron}, which then simplifies to eq.\,\ref{eq:onlyOscillation}
+\begin{align}
+    \sigma_\text{xx}(B) = A(B,T,\tau)\cdot\cos{\left(\frac{2\pi E_\text{F}}{\hbar\omega}\right)}
+    \label{eq:onlyOscillation}
+\end{align}
+Like shown in fig.\,\ref{eq:onlyOscillation}, the amplitudes of the first pronounced oscillation for
+the temperatures ($1.4\,K$,$3\,K$) and ($2.1\,K$,$4.2\,K$) are read out as pairs ($A(T_1)$,$A(T_2)$).
+The chosen oscillation is small enough that with $A_\text{ratio}=\frac{A(T_1)}{A(T_2)}$ eq.\,\ref{mc/me} is valid \cite{Tasksheet}.
+\begin{align}
+    \frac{m_\text{c}}{m_\text{e}}=\frac{\hbar eB}{m_\text{e}\pi^2k_\text{B}T_1}\text{arcosh}\left(A_\text{ratio}\right)
+\end{align}
