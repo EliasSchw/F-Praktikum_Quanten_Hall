@@ -144,10 +144,10 @@ def plot_ns():
     n_fit = slope * U_gate_fit + intercept
 
     # Plot the fit line
-    plt.plot(U_gate_fit, n_fit, label=f'Linear Fit: $n = {slope:.2e} U_{{gate}} + {intercept:.2e}$', color='red')
+    plt.plot(U_gate_fit, n_fit, label=f'linear fit', color='red')
     plt.legend()
     plotter.fancyGraph()  
-    plotter.save_and_open()
+    plotter.save_and_open(filename='extrapolatingN')
 
 
 plot_ns()
@@ -155,7 +155,7 @@ plot_ns()
 
 
 
-
+'''
 # --- Berechnung ---
 
 mean_n_by_temperature, mean_n_error_by_temperature = calculate_mean_n_and_error(nu, Bn2, Bn2Error, temperatures)
@@ -168,4 +168,4 @@ writeCSMacros(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
 # --- Makros schreiben mit writeCSMacros für N2 ---
 writeCSMacrosForN2(mean_n_by_temperature, mean_n_error_by_temperature, temperatures)
 
-
+'''

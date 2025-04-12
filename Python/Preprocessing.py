@@ -123,6 +123,7 @@ def plotrhoFürKaputteKurve():
     plt.xlabel(r'$B\,/\,T$')
     plt.ylabel(r'$\rho\,/\,k\Omega$')
     plotter.fancyGraph()
+    plt.show()
     plotter.save_and_open(filename='kaputteKurvenGateV')
     
     
