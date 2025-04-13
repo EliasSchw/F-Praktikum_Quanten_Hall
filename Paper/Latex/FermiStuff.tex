@@ -1,5 +1,5 @@
 \section{Fermi wave vector, Fermi energy and Fermi velocity}
-To determine all Fermi relatied values, firstly the Fermi wave vector $k_\text{F}$ is calculated with eq\,\ref{eq:kFermi}.
+To determine all Fermi relatied values assuming a parabolic energy dispersion, firstly the Fermi wave vector $k_\text{F}$ is calculated with eq\,\ref{eq:kFermi}.
 \begin{align}
     k_\text{F}=\sqrt{2\pi n_\text{slope}} \label{eq:kFermi}
 \end{align}
@@ -26,4 +26,14 @@ The results are shown in tab.\,\ref{tab:FermiValues}.
         
     \end{tabular}
 \end{table}
-The errors are calculated using gaussian error propagation.
+The errors are calculated using gaussian error propagation. For the cyclotron mass no temperature dependence is expected.
+Therefore, the only temperature dependent value is the charge carrier density. The temperature dependence of $n_\text{slope}$
+can be seen in the results for the Fermi wave vector. Those values do not agree with themself within their errors and show
+a slight dependence for higher temperatures towards higher values. The $k_\text{F}$ value for $2.1\,\text{K}$ is in this case
+treated as an outlier. For the Fermi energy and the Fermi velocity, the temperature dependence is barely visible, as 
+the impact of $n_\text{slope}$ is much smaller. \\
+It's interesting to note that the Fermi Energy is well below the thermal energy at room temperature,
+which is about $25\,\text{meV}$. In the context of the experiment this means that the confinement in stacking direction
+of our quantum well would not be strong enough to keep the electrons in the ground state. That means that it's
+not possible to perform the experiment at room temperature because the system would not longer be 2D.
+To neglect those thermal effect, the experiment is performed at lower temperatures.

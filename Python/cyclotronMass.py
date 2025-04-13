@@ -162,7 +162,7 @@ def main():
     print(f"Zyklotronmasse bei 2.1K: {(cyclotron21/const.m_e):.3e} ± {(cyclotron21Error/const.m_e):.3e} m_e")
 
     # Makros schreiben
-    writeCyclotronMacros(cyclotron15, cyclotron21, cyclotron15Error, cyclotron21Error)
+    writeCyclotronMacros(cyclotron15*10**2, cyclotron21*10**2, cyclotron15Error*10**2, cyclotron21Error*10**2)
 
     # Plot der Differenzen mit markierten Punkten
     plot_differences_with_points(Datenreihen, BTable, sigmaXXTable, farben, selected_points)
