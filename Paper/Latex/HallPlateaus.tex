@@ -3,7 +3,7 @@
 The Hall resistance $\rho_{\text{xy}}$ forms plateaus at \begin{align}
     \rho_{xy} = \frac{h}{\nu e^2} =: \frac{R_\text K}{\nu} \end{align} with the elementary charge $e$ and the planck constant $h$. 
 The filling factor $\nu \in \mathbb N$ describes the number of occupied Landau levels.
-The goal of this section is to determine the von Klitzing constant $R_K$.
+The goal of this section is to determine the von Klitzing constant $R_\text{K}$.
 Before reading off the plateaus, two errors have to be taken into account: the time delay and the different scales of the lock in the amplifiers.
 To account for the time delay caused by integration and possibly some additional internal delay of the lock-in amplifiers, the three voltages given by the lock-in amplifiers are shifted back in time.
 Since the magnetic field B is ramped up and down between $0\,\text{T}$ and $9\,\text{T}$, the constant time shift can be chosen so that both graphs match.
@@ -19,15 +19,15 @@ One finds the correction factor
 All further calculations are corrected for the time delay and the different scales.
 Only $\rho_{\text{xy}}$ is corrected with the factor $\alpha$, since no additional measurement with swapped lock-in amplifiers was performed.
 In principle, $\rho_{\text{xx}}$ could be corrected in the same way.
-The longitudinal and transverse resistance for $T=1.4K$ and a gate voltage of $U_\text{gate}=-0.25V$ is shown in fig. \ref{fig:KlitzingBeispielBild} \begin{figure}[h] \centering \includegraphics[width=0.45\textwidth]{../Images/BeispielBildVomAnfang.png}
-    \caption{ Longitudinal and transverse resistivity for $T=1.4K$ and a gate voltage of $U_\text{gate}=-0.25V$.
-        Plateaus in the transverse resistivity and oscillating peaks in the transversal resistivity are clearly visible.
+The longitudinal and transverse resistance for $T=1.4\text{K}$ and a gate voltage of $U_\text{gate}=-0.25\text{V}$ is shown in fig. \ref{fig:KlitzingBeispielBild} \begin{figure}[h] \centering \includegraphics[width=0.45\textwidth]{../Images/BeispielBildVomAnfang.png}
+    \caption{ Longitudinal and transverse resistivity for $T=1.4\text{K}$ and a gate voltage of $U_\text{gate}=-0.25\text{V}$.
+        Plateaus in the transverse resistivity and oscillating peaks in the longitudinal resistivity are clearly visible.
         }
     \label{fig:KlitzingBeispielBild} 
 \end{figure}
 \\
 To obtain $R_\text K$, the average of the resistivities of the plateaus is taken.
-The transverse resistivity $\rho_{\text{xy}}$ of the plateaus and the resulting $R_\text K$ are listed in tab. \ref{tab:plateau_values} and tab. \ref{tab:Klitzing} respectively.
+The transverse resistivity $\rho_{\text{xy}}$ of the plateaus and the resulting $R_\text{K}$ are listed in tab. \ref{tab:plateau_values} and tab. \ref{tab:Klitzing} respectively.
 The error is obtained by propagating the accuracy of the lock in amplifiers.
 \begin{table}[!ht]
     \centering
@@ -39,7 +39,7 @@ The error is obtained by propagating the accuracy of the lock in amplifiers.
         4      & $\csname PlateauNr44.2K\endcsname$  & $\csname PlateauNr43K\endcsname$  & $\csname PlateauNr42.1K\endcsname$  & $\csname PlateauNr41.4K\endcsname$  \\ 
         5      & $\csname PlateauNr54.2K\endcsname$  & $\csname PlateauNr53K\endcsname$  & $\csname PlateauNr52.1K\endcsname$  & $\csname PlateauNr51.4K\endcsname$  \\ 
     \end{tabular}
-    \caption{Plateaus in Hall resistivity for different temperatures and filling factors in $k\Omega$.
+    \caption{Plateaus in Hall resistivity for different temperatures and filling factors in $\text{k}\Omega$.
     The error is $1.4\%$.
     }
     \label{tab:plateau_values}
@@ -54,7 +54,7 @@ The error is obtained by propagating the accuracy of the lock in amplifiers.
         4      & $\csname PlateauMalNuNr44.2K\endcsname$  & $\csname PlateauMalNuNr43K\endcsname$  & $\csname PlateauMalNuNr42.1K\endcsname$  & $\csname PlateauMalNuNr41.4K\endcsname$  \\ 
         5      & $\csname PlateauMalNuNr54.2K\endcsname$  & $\csname PlateauMalNuNr53K\endcsname$  & $\csname PlateauMalNuNr52.1K\endcsname$  & $\csname PlateauMalNuNr51.4K\endcsname$  \\ 
     \end{tabular}
-    \caption{$R_\text K$ for different temperatures and filling factors in $k\Omega$.
+    \caption{$R_\text K$ for different temperatures and filling factors in $\text{k}\Omega$.
     The error is $1.4\%$.
     }
     \label{tab:Klitzing}

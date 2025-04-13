@@ -1,22 +1,22 @@
 \section{Electronic properties at zero magnetic field}
 This section describes the electronic properties of the sample at zero magnetic field.
-The dependence between the longitudinal resistivity $\rho_\text{xx}$ and the longitudinal conductivity $\sigma_\text{xx}$ for $B=0$ is shown in eq.\,\ref{eq:simaxx}.
+The dependence between the resistivity $\rho$ and the conductivity $\sigma$ for $B=0$ in an isotropic material is given by:
 \begin{align}
-    \sigma_{xx} = \frac{1}{\rho_{xx}}
+    \sigma = \frac{1}{\rho}.
     \label{eq:simaxx}
 \end{align}
-In this case, $\rho_\text{xx}$ and $\sigma_\text{xx}$ are treated as scalars because the off-diagonal elements of the resistivity vanish.
-For magnetic fields greater than zero, the off-diagonal elements no longer vanish, so the two properties must be treated as tensors. 
-The dependence is given by eq.\,\ref{eq:sigmaxxtensor}.
+In this case, $\rho$ and $\sigma$ are treated as scalars because the off-diagonal elements of the resistivity vanish.
+For non-zero magnetic fields, the off-diagonal elements no longer vanish, so $\rho$ and $\sigma$ must be treated as tensors. 
+The dependence is given by:
 \begin{align}
-    \hat{\sigma}_\text{xx} = \frac{\hat{\rho}_\text{xx}}{\hat{\rho}_\text{xx}^2 + \hat{\rho}_\text{xy}^2}
+    \hat{\sigma}_\text{xx} = \frac{\hat{\rho}_\text{xx}}{\hat{\rho}_\text{xx}^2 + \hat{\rho}_\text{xy}^2}.
     \label{eq:sigmaxxtensor}
 \end{align}
-With the Hall factor $R_\text{H}$, which is defined as shown in eq.\,\ref{eq:RH}
+With the Hall factor $R_\text{H}$
 \begin{align}
     R_\text{H}=\frac{1}{en}\label{eq:RH}
 \end{align}
-the charge carrier mobility $\mu$ can be calculated using eq.\,\ref{eq:mu}.
+the charge carrier mobility $\mu$ can be calculated using 
 \begin{align}
     \mu = R_\text{H} \cdot \sigma_{xx}
     \label{eq:mu}
@@ -26,29 +26,29 @@ The results are shown in tab.\,\ref{tab:zerofield}.
     \centering
     \begin{tabular}{c|c}
         \hline\hline
-        $T / \text{K}$ & $\sigma_\text{xx}\,/\,10^{-3}\,\Omega^{-1}$\\\hline\hline
+        $T / \text{K}$ & $\sigma_\text{xx}\,/\,10^{-3}\,\Omega^{-1}$\\\hline
         4.2 & $\csname simaXX4.2K\endcsname$ \\
         3 & $\csname simaXX3K\endcsname$ \\
         2.1 & $\csname simaXX2.1K\endcsname$ \\
         1.4 & $\csname simaXX1.4K\endcsname$ \\\hline\hline
-        $T / \text{K}$ & $R_\text{H}\,/\,10^{3}\,\text{m}^2\text{C}^{-1}$\\\hline\hline
+        $T / \text{K}$ & $R_\text{H}\,/\,10^{3}\,\text{m}^2\text{C}^{-1}$\\\hline
         4.2 & $\csname RHall4.2K\endcsname$ \\
         3 & $\csname RHall3K\endcsname$ \\
         2.1 & $\csname RHall2.1K\endcsname$ \\
         1.4 & $\csname RHall1.4K\endcsname$ \\\hline\hline
-        $T / \text{K}$ & $\mu\,/\,10^{1}\,\text{m}^2\text{V}^{-1}\text{s}^{-1}$\\\hline\hline
+        $T / \text{K}$ & $\mu\,/\,10^{1}\,\text{m}^2\text{V}^{-1}\text{s}^{-1}$\\\hline
         4.2 & $\csname my4.2K\endcsname$ \\
         3 & $\csname my3K\endcsname$ \\
         2.1 & $\csname my2.1K\endcsname$ \\
         1.4 & $\csname my1.4K\endcsname$ \\\hline\hline
     \end{tabular}
-    \caption{Values of the longitudinal conductivity, Hall constant and mobility at zero magnetic field\label{tab:zerofield}}
+    \caption{Values of the longitudinal conductivity, Hall constant and mobility at zero magnetic field \label{tab:zerofield}}
 \end{table}
-The error of $\sigma_\text{xx}$ is given by Gaussian error propagation of the relative error of $\rho_\text{xx}$ with $\sqrt{2}\,\%$ (see ch.\,\ref{sec:setup}).
-For the calculation of $R_\text{H}$ $n_\text{slope}$ is used, because this method is the most precise.
+The error of $\sigma_\text{xx}$ is given by Gaussian error propagation of the relative error of $\rho_\text{xx}$ with $1.4\,\%$.
+For the calculation of $R_\text{H}$, $n_\text{slope}$ is used, because this method is the most precise.
 The error of $R_\text{H}$ and $\mu$ is then also calculated by Gaussian error propagation.
 Looking at the results, there is no temperature dependence for any of the three properties. 
-For $\sigma_\text{xx}$ and $\mu$ the values are constant within their error. 
+Taking the errors into account, no temperature dependence can be observed. 
 The Hall factor $R_\text{H}$ also seems to be constant for the different temperatures, 
 but the data do not agree with each other within the error. 
-This is due to the fact that the error is very small and yet the values are very close.
+This is due to the fact that the error of the linear regression is very small and yet the values are very close.

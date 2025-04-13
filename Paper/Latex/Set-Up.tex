@@ -1,7 +1,11 @@
-\section{Set-Up}\label{sec:setup}
+\section{Set-up}\label{sec:setup}
 The study of QHE requires a two-dimensional or quasi two-dimensional system.
 In this experiment, a quantum well is created by trapping electrons in a thin layer of HgTe between two layers of HgCdTe. Due to the smaller band gap of HgTe compared to HgCdTe, a quantum well is formed. 
-At low temperatures, all the electrons are in the lowest energy level of the two-dimensional quantum well. This creates a confinement in the layer stacking direction.
+At low temperatures, 
+\begin{align}
+    k_\text{B}T << E_1-E_0
+\end{align}
+all the electrons are in the lowest energy level of the two-dimensional quantum well. This creates a confinement in the layer stacking direction.
 Inside the HgTe quantum film, the electrons form a two-dimensional electron gas (2DEG) with high mobility.
 The sample is designed in a common Hall bar geometry with $8$ contacts at the edges with an additional pair for the gate voltage (see fig.\,\ref{fig:HallBar}).
 The gate voltage is set to $V_\text g = -0.25V$ unless otherwise specified.
@@ -35,9 +39,9 @@ which will be referred to as the target temperatures $4.2K$, $3K$, $2.1K$, and $
 The temperature of the sample is measured by the voltage drop across an $Alan Bradley$ resistor $R_\text{AB}=100\,\Omega$ using a \emph{Keithley 160B} digital multimeter and a constant current of $10\mu\text{m}$.
 Acting as a resistive thermometer, the carbon resistor is placed with the sample inside the VTI and is calibrated for the temperature range used.
 The conversion from voltage to temperature is done with the calibration table \cite{ExperimentDescription}. \\
-The temperatures could not be stabilized perfectly, so the average temperature between the beginning and the end of the measurement is taken.
+The temperatures could not be stabilized perfectly, so the average temperature between the beginning and the end of the measurement is being used.
 While the magnetic field is on, the temperature could not be measured because the resistance depends on the magnetic field.
 Since the resistor is not exactly positioned on the Hall bar and its error is not known, the temperature error is estimated to be $1\%$.
-If half of the temperature drift is larger, half of the drift is used as the error.
+If half of the temperature drift is larger than this error, it is used as the error instead.
 
 

@@ -1,28 +1,29 @@
 \section{Charge carrier density}
-In the following section the determination of the carrier density $n$ is described in three different ways.
+In the following section the determination of the carrier density $n$ is described using three different methods.
 All determined carrier densities are listed in tab.\,\ref{tab:ns}.
-\subsection{Charge carrier density extrapolation from the classical Hall effect}
+\subsection{Charge carrier density extrapolation via classical Hall effect}
 In the classical Hall effect, the charge carrier density $n_\text{slope}$ is given by 
 \begin{align}
     n_\text{slope} = \frac{B}{\rho_{xy}e} = \frac{1}{e \cdot m_\text{slope}}.
     \label{eq:chargeCarrierClassicalHall}
 \end{align}
+with the slope $m_\text{slope}$ of the Hall resistance $\rho_{xy}$ as the regression parameter.
 In our experiment, one expect to see the classical Hall effect at low magnetic fields.
 As seen in fig.\,\ref{fig:KlitzingBeispielBild} the slope of the Hall resistance shows a linear behavior for small magnetic fields.
 The carrier density is calculated by determining the slope $m_\text{slope}$ of the linear region using a linear regression for the data points for $B<1\,\text{T}$.
 The error is calculated by Gaussian error propagation of the error of $m_\text{slope}$ obtained from the linear regression.
 
 \subsection{Charge carrier density via Hall plateaus}
-In the quantum Hall regime the carrier density can be calculated from the Hall plateaus with the corresponding filling factors $\nu$.
-Therefore, $n_\nu$ can be calculated using eq.\,\ref{eq:nnu} 
+In the quantum Hall regime the carrier density can be calculated from the Hall plateaus with the corresponding filling factors $\nu$:
 \begin{align} 
     n_\nu = \frac{\nu B_\nu e}{h} \label{eq:nnu} 
 \end{align} 
 where $B_\nu$ is the mean magnetic field at the plateau for the corresponding fill factor.
 $B_\nu$ is determined by manually reading the center of each plateau, with the error of $B_\nu$ being the uncertainty of the reading. For higher fill factors, the plateaus become narrower and the error of the reading becomes slightly smaller.
 The error of $n_\nu$ is then calculated by Gaussian error propagation.
-\subsection{Charge carrier density via Shoubnikow-de Haas Effect}
-The Shoubnikow-de Haas Effect describes the oscillations of the longitudinal resistivity $\rho_{xx}$ with increasing magnetic field $B$.
+
+\subsection{Charge carrier density via Shoubnikow-de Haas effect}
+The Shoubnikow-de Haas effect describes the oscillations of the longitudinal resistivity $\rho_{xx}$ with increasing magnetic field $B$.
 It can be explained with the equally spaced Landau levels moving up in energy, when $B$ increases.
 The charge carrier density $n_\text{SdH}$ is calculated via
 \begin{align}
@@ -33,16 +34,16 @@ with the periodicity of oscillations $\Delta\left(\frac{1}{B}\right)$.
 To obtain the periodicity $\Delta$, the longitudinal resistivity $\rho^\prime_\text{xx}\left(B\right)=\rho_\text{xx}\left(\frac{1}{B}\right)$ is considered.
 Since the measured data points are equally spaced in $B$ instead of $\frac{1}{B}$, an interpolation is performed.
 A discrete Fast Fourier Transform is applied to accurately determine the period of the oscillations.
-A clear peak is visible that corresponds to the estimated periodicity.
+A clear peak is visible.
 To accurately locate the peak, a Gaussian is fit to the region and the peak value of the fit is used as $\Delta$.
 The error of the peak is estimated to be half the width of the Gaussian.
-The Fourier transformed resistivity $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ for $1.4K$ is shown in \ref{fig:Fourier}.
+The Fourier transformed resistivity $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ for $1.\text{K}K$ is shown in \ref{fig:Fourier}.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{../Images/FourierMitGausFür14K.png}
     \caption{Fourier transform of the longitudinal resistivity 
     $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ 
-    for $1.4K$ to determine the frequency of Shoubnikow-de Haas oscillations.
+    for $1.4\text{K}$ to determine the frequency of Shoubnikow-de Haas oscillations.\\
     The peak is determined with a fit of a gaussian curve.
     }
     \label{fig:Fourier}
@@ -67,7 +68,8 @@ The charge carrier densities calculated with \ref{eq:chargeCarrierFourier} are s
         & 1.4 & $\csname FourierN1.4K\endcsname$ \\\hline\hline
     \end{tabular}
     \caption{Data of the charge carrier density $n$ calculated with different methods.
-    The values are given in units of $10^{15}\,\text{m}^{-2}$. \label{tab:ns}}
+    The values are given in units of $10^{15}\,\text{m}^{-2}$. For all following sections
+    the method $n_\text{slope}$ is chosen for the determination of $n$. \label{tab:ns}}
 \end{table}
 
 
