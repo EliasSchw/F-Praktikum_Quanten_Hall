@@ -1,48 +1,33 @@
 \section{Von Klitzing Constant}
 
-The Hall resistivity $\rho_{\text{xy}}$ forms plateaus at
-\begin{align}
-    \rho_{xy} = \frac{h}{\nu e^2} =: \frac{R_\text K}{\nu}
-\end{align}
-with the elementary charge $e$ and the planc constant $h$. 
+The Hall resistance $\rho_{\text{xy}}$ forms plateaus at \begin{align}
+    \rho_{xy} = \frac{h}{\nu e^2} =: \frac{R_\text K}{\nu} \end{align} with the elementary charge $e$ and the planck constant $h$. 
 The filling factor $\nu \in \mathbb N$ describes the number of occupied Landau levels.
 The goal of this section is to determine the von Klitzing constant $R_K$.
-Before reading off the plateaus, two errors have to be taken into account:
-the time delay and the different scales of the lock in amplifiers.
-To account for the time delay, 
-caused by the integration and perhhaps some additional internal delay of the lock in amplifiers,
-the three voltages given by the lock in amplifiers are shifted backwards in time.
-Since the magnetic field B is ramped up and down between $0T$ and $9T$, 
-the constant shift in time can be chosen, s.t. both graphs match.
-To compensate for different scales $\alpha_i$, 
-the lock in amplifiers $1$ and $2$ measuring $U_\text{xy}$ and $U_\text I$ are exchanged and the measurement at $1.4\,K$ is repeated.
-If $U$ and $I$ are the real values,
+Before reading off the plateaus, two errors have to be taken into account: the time delay and the different scales of the lock in the amplifiers.
+To account for the time delay caused by integration and possibly some additional internal delay of the lock-in amplifiers, the three voltages given by the lock-in amplifiers are shifted back in time.
+Since the magnetic field B is ramped up and down between $0\,\text{T}$ and $9\,\text{T}$, the constant time shift can be chosen so that both graphs match.
+To compensate for the different scales $\alpha_i$, the lock in amplifiers $1$ and $2$ measuring $U_\text{xy}$ and $U_\text I$ are swapped and the measurement is repeated at $1.4\,K$.
+If $U$ and $I$ are the real values, then 
 \begin{align}
-    R_{\text K,1} = \frac{U_{\text{xy}, 1}}{I_2} = \frac{\alpha_1 U}{\alpha_2 I}\\
-    R_{\text K,2} = \frac{U_{\text{xy}, 2}}{I_1} = \frac{\alpha_2 U}{\alpha_1 I}
-\end{align}
-one finds the correction factor
+    R_{\text K,1} = \frac{U_{\text{xy}, 1}}{I_2} = \frac{\alpha_1 U}{\alpha_2 I}\\ R_{\text K,2} = \frac{U_{\text{xy}, 2}}{I_1} = \frac{\alpha_2 U}{\alpha_1 I}
+\end{align} 
+One finds the correction factor 
 \begin{align}
     \alpha = \frac{\alpha_1}{\alpha_2} = \sqrt{\frac{U_{\text{xy},1}I_2}{U_{\text{xy}, 2}I_1}}. 
 \end{align}
 All further calculations are corrected for the time delay and the different scales.
-Only $\rho_{\text{xy}}$ is corrected with the factor $\alpha$, 
-since no additional measurement with exchanged lock in amplifiers was performed.
-In principle, $\rho_{\text{xx}}$ could be corrected in the same manner.
-The longitudinal and transversal resistivity for $T=1.4K$ and a gate voltage of $U_\text{gate}=-0.25V$ is depicted in fig. \ref{fig:KlitzingBeispielBild}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.45\textwidth]{../Images/BeispielBildVomAnfang.png}
-    \caption{
-        Longitudinal and transversal resistivity for $T=1.4K$ and a gate voltage of $U_\text{gate}=-0.25V$.
-        Plateaus in the transversal and oscillating peaks in the transversal resistivity are clearly visible.
+Only $\rho_{\text{xy}}$ is corrected with the factor $\alpha$, since no additional measurement with swapped lock-in amplifiers was performed.
+In principle, $\rho_{\text{xx}}$ could be corrected in the same way.
+The longitudinal and transverse resistance for $T=1.4K$ and a gate voltage of $U_\text{gate}=-0.25V$ is shown in fig. \ref{fig:KlitzingBeispielBild} \begin{figure}[h] \centering \includegraphics[width=0.45\textwidth]{../Images/BeispielBildVomAnfang.png}
+    \caption{ Longitudinal and transverse resistivity for $T=1.4K$ and a gate voltage of $U_\text{gate}=-0.25V$.
+        Plateaus in the transverse resistivity and oscillating peaks in the transversal resistivity are clearly visible.
         }
-    \label{fig:KlitzingBeispielBild}
+    \label{fig:KlitzingBeispielBild} 
 \end{figure}
 \\
-To obtain $R_\text K$, the average values of the resistivities of the plateaus is taken.
-The transversal resistivity $\rho_{\text{xy}}$ of the plateaus and the resulting $R_\text K$ are presented in 
-tab. \ref{tab:plateau_values} and tab. \ref{tab:Klitzing} respectively.
+To obtain $R_\text K$, the average of the resistivities of the plateaus is taken.
+The transverse resistivity $\rho_{\text{xy}}$ of the plateaus and the resulting $R_\text K$ are listed in tab. \ref{tab:plateau_values} and tab. \ref{tab:Klitzing} respectively.
 The error is obtained by propagating the accuracy of the lock in amplifiers.
 \begin{table}[!ht]
     \centering
