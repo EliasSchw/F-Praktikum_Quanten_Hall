@@ -1,20 +1,26 @@
 \section{Gate Voltage and Charge Carrier Density}
-
-To understand the influence of varrying densities of charge carriers $n$, the gate voltage $U_\text{gate}$ is varried. 
+To understand the influence of varrying densities of charge carriers $n$, 
+the gate voltage $U_\text{gate}$ is varried.
+A higher $U_\text{gate}$ increases the Fermi level and therefore the charge carrier density.
 Gate voltages of  $1.5V, 1V, -0.25V, -1V, -1.5V$ were applied.
-The first tree gate voltages are depicted in fig. \ref{fig:differentGateVoltagesQHE}.
+The first three gate voltages are depicted in fig. \ref{fig:differentGateVoltagesQHE}.
 They exhibit Hall plateaus and Shoubnikow-de Haas oscillations.
 The Hall resistivity $\rho_\text{xy}$ grows slower with $B$ for larger densities of states.
 Notice, that the plateaus in $\rho_\text{xy}$ remain at the same discrete values, but require higher $B$.
-This can be explained with the higher Fermi level, which has more Landau niveaus with lower energy.
+This can be explained with the higher Fermi level, which has more Landau niveaus underneath.
 A higher $B$ is required to shift the Landau niveaus above the Fermi level.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{../Images/differentGateVoltagesQHE.png}
-    \caption{??}
+    \caption{Resistivities $\rho_\text{xy}$ and $\rho_\text{xx}$ for different gate voltages at $1.4K$. 
+    All 6 curves are in the regime of electron conduction.
+    Lower $U_\text{gate}$
+     leads to a steeper incline of $\rho_\text{xy}$ and higher peaks in $\rho_\text{xx}$ with larger gaps in between.
+    The plateaus keep their discrete values.
+}
     \label{fig:differentGateVoltagesQHE}
 \end{figure}
-In this tree cases, the fermi level remains above (or at, for $\nu=1$) the lowest Landau level.
+In this three cases, the fermi level remains above (or at, for $\nu=1$) the lowest Landau level.
 Notice, that for fixed $n$ the lowest Landau niveau will not cross the Fermi level by increasing $B$.
 The Fermi niveau can, however be shifted below the lowest landau level, if $U_\text{gate}$ and the corresponding $n$ is low enough.
 Then only niveaus corresponding to defects are located around the Fermi level.
@@ -25,16 +31,22 @@ The resistivities for these gate voltages are plotted in \ref{fig:kaputteKurvenG
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{../Images/kaputteKurvenGateV.png}
-    \caption{??}
+    \caption{
+        Resistivities $\rho_\text{xy}$ and $\rho_\text{xx}$ at $1.4K$ for different gate voltages, 
+        corresponding to low charge carrier densities $n$.  
+        The slope for small $B$ hints the small value of $n$.
+        Defects might play an improtant role for small $n$.
+        Negative $\rho_\text{xy}$ correspond to p-type conduction, posivity $\rho_\text{xy}$ to n-type conduction.}
     \label{fig:kaputteKurvenGateV}
 \end{figure}
 For the gate voltage of $1V$, the charge carrier density is very small, resulting in the steep incline of $\rho_\text{xy}$.
 This explains, why the plateau corresponding to $\nu=1$ is already reached for $B\approx1.6T$ and 
 the plateaus corresponding to  $\nu\>1$ are not visible.
-The longitudinal component has vanishing resistivity for the values of $B$, for which \rhall has the plateau.  
-After further increasing $B$, \rhall temporarily shows negative values.
+The longitudinal component has vanishing resistivity for the values of $B$, for which $\rho_\text{xy}$ is constant.
+For this small charge carrier densities, defects, with localized states could play an increasingly imortant role.
+After further increasing $B$, $\rho_\text{xy}$ temporarily shows negative values.
 This could be explained by p-type conduction, since the holes with positive charges, 
-moving in the other direction are deflected in the same direction as electrons, resulting in a change of sign in \rhall.
+moving in the other direction are deflected in the same direction as electrons, resulting in a change of sign in $\rho_\text{xy}$.
 Since the valence band typically has a lower curvature near the band gap, the holes typically have a larger effective mass $m^\star$.
 The cyclotron frequency
 \begin{align}
@@ -47,22 +59,24 @@ an therefore the energy (difference) of the Laudau levels
 is smaller for the holes.
 This makes the Landau levels harder to seperate. 
 Larger $B$ would be required to accieve the same results as with electrons.
-\rhall of $U_\text{gate} = -1.5V$ has a negative slope for small $B$.
+$\rho_\text{xy}$ of $U_\text{gate} = -1.5V$ has a negative slope for small $B$.
 This is interpreted as having p-type conduction, resulting in a negative charge carrier density.
 Notice that the transversal conductivity does not vanish for $B=0$.
 This could be a sign of an anisotropy of the material.
 It is unclear, why this shift only applies for holes.
-\rhall for $U_\text{gate} = -1.5V$ does not reach the von Klitzing constant.
+$\rho_\text{xy}$ for $U_\text{gate} = -1.5V$ does not reach the von Klitzing constant.
 It is assumed, that even smaller $U_\text{gate}$ will show plateaus. 
 
 Extrapolating $n$ for lower $U_\text{gate}$ gives an estimate for the charge carrier density (see fig. \ref{fig:extrapolating})
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{../Images/extrapolatingN.png}
-    \caption{??}
+    \caption{
+        Dependence of charge carrier density $n$ on the gate voltage.
+        The linear fit is extrapolated to estimate the gate voltage needed,
+        to have a charge carrier density of holes comparable to the charge carrier density of electrons with $\ugate = -0.25V$
+    }
     \label{fig:extrapolating}
 \end{figure}
 To obtain a charge carrier density of holes comparable to the charge carrier density of electrons for $U_\text{gate} = -0.25\,V$,
 a gate voltage of $U_\text{gate} \approx -2\,V$ is required.
-
-
