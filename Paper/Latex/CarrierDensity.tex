@@ -18,8 +18,9 @@ In the quantum Hall regime the carrier density can be calculated from the Hall p
 \begin{align} 
     n_\nu = \frac{\nu B_\nu e}{h} \label{eq:nnu} 
 \end{align} 
-where $B_\nu$ is the mean magnetic field at the plateau for the corresponding fill factor.
-$B_\nu$ is determined by manually reading the center of each plateau, with the error of $B_\nu$ being the uncertainty of the reading. For higher fill factors, the plateaus become narrower and the error of the reading becomes slightly smaller.
+where $B_\nu$ is the mean magnetic field at the plateau for the corresponding filling factor.
+$B_\nu$ is determined by manually reading the center of each plateau, with the error of $B_\nu$ being the uncertainty of the reading. 
+For higher filling factors, the plateaus become narrower and the error of the reading becomes slightly smaller, as the midpoint of the plateaus is easier to determine.
 The error of $n_\nu$ is then calculated by Gaussian error propagation.
 
 \subsection{Charge carrier density via Shoubnikow-de Haas effect}
@@ -36,19 +37,19 @@ Since the measured data points are equally spaced in $B$ instead of $\frac{1}{B}
 A discrete Fast Fourier Transform is applied to accurately determine the period of the oscillations.
 A clear peak is visible.
 To accurately locate the peak, a Gaussian is fit to the region and the peak value of the fit is used as $\Delta$.
-The error of the peak is estimated to be half the width of the Gaussian.
-The Fourier transformed resistivity $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ for $1.\text{K}K$ is shown in \ref{fig:Fourier}.
+The error of the peak is estimated to be half the width of the Gaussian $\sigma / 2$.
+The Fourier transformed resistivity $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ for $1.4\,\text{K}K$ is shown in fig. \ref{fig:Fourier}.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{../Images/FourierMitGausFür14K.png}
     \caption{Fourier transform of the longitudinal resistivity 
     $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ 
-    for $1.4\text{K}$ to determine the frequency of Shoubnikow-de Haas oscillations.\\
+    for $1.4\,\text{K}$ to determine the frequency of Shoubnikow-de Haas oscillations.\\
     The peak is determined with a fit of a gaussian curve.
     }
     \label{fig:Fourier}
 \end{figure}
-The charge carrier densities calculated with \ref{eq:chargeCarrierFourier} are shown in tab. \ref{tab:ns}.
+The charge carrier densities calculated with eq. \ref{eq:chargeCarrierFourier} are shown in tab. \ref{tab:ns}.
 \begin{table}[h]
     \centering
     \begin{tabular}{c|c|c}
