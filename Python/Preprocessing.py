@@ -33,6 +33,7 @@ filepath_Gate_minus_1_5V = r'RawData/Gate_--1_49904V_LI_swiched_151_6V1_470K_end
 filepath_Gate_minus_1V = r'RawData/Gate_-0_9992V_LI_swiched_133_9V1_520K_end_133_5V1_520K 8.dat'
 filepath_Gate_1V = r'RawData/Gate_1V_LI_swiched_152_3V1_520K_end_134_0V1_520K 7.dat'
 filepath_Gate_1_5V = r'RawData/Gate_1_5V_LI_swiched_135_5V1_520K_end_134_7V1_520K 6.dat'
+filepath_Gate_minus_2V = r'F-Praktikum_Quanten_Hall/RawData/23.dat'
 # im Array: filepath, cut_rampup_anfang (Zeit), cut_rampup_ende, cut_rampdown_anfang, cut_rampdown_ende, temp, temp_fehler, U_gate, switched:boolean
 Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.99, 'temp_fehler': 0.031, 'U_gate': -0.25},                 
                     '3K' : {'path': filepath_3K, 'temp': 2.97, 'temp_fehler': 0.0, 'U_gate': -0.25, 'switched': False},
@@ -42,8 +43,8 @@ Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.9
                     'Gate_minus_1_5V' : {'path': filepath_Gate_minus_1_5V, 'temp': 1.495, 'temp_fehler': 0.025, 'U_gate': -1.5, 'switched': True},
                     'Gate_minus_1V' : {'path': filepath_Gate_minus_1V, 'temp': 1.52, 'temp_fehler': 0.0, 'U_gate': -1.0, 'switched': True},
                     'Gate_1V' : {'path': filepath_Gate_1V, 'temp': 1.495, 'temp_fehler': 0.025, 'U_gate': 1.0, 'switched': True},
-                    'Gate_1_5V' : {'path': filepath_Gate_1_5V, 'temp': 1.52, 'temp_fehler': 0.0, 'U_gate': 1.5, 'switched': True}
-                    }
+                    'Gate_1_5V' : {'path': filepath_Gate_1_5V, 'temp': 1.52, 'temp_fehler': 0.0, 'U_gate': 1.5, 'switched': True},
+                    'Gate_minus_2V' : {'path': filepath_Gate_minus_2V, 'temp': 1.53, 'temp_fehler': 0.0, 'U_gate': -2.0, 'switched': True}}
                     
                     
 def writeTempMacros():

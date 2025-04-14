@@ -5,9 +5,9 @@ import pandas as pd
 import DataPlotter as dp
 from macroswriter import writeLatexMacro
 
-Gates = ['-1.5', '-1', '-0.25', '1', '1.5']
+Gates = ['-1.5', '-1', '-0.25', '1', '1.5', '-2']
 # Datenbasis
-Data = ['Gate_minus_1_5V', 'Gate_minus_1V', '1.4K_switched', 'Gate_1V', 'Gate_1_5V']
+Data = ['Gate_minus_1_5V', 'Gate_minus_1V', '1.4K_switched', 'Gate_1V', 'Gate_1_5V', 'Gate_minus_2V']
 def writeN1Macros(nTable, nErrorTable, temperatures):
     """
     Schreibt die Makros für n1-Werte in die Datei macros.tex.
