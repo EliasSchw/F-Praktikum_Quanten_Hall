@@ -24,6 +24,16 @@ For higher filling factors, the plateaus become narrower and the error of the re
 The error of $n_\nu$ is then calculated by Gaussian error propagation.
 
 \subsection{Charge carrier density via Shoubnikow-de Haas effect}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{../Images/FourierMitGausFür14K.png}
+    \caption{Fourier transform of the longitudinal resistivity 
+    $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ 
+    for $1.4\,\text{K}$ to determine the frequency of Shoubnikow-de Haas oscillations.\\
+    The peak is determined with a fit of a gaussian curve.
+    }
+    \label{fig:Fourier}
+\end{figure}
 The Shoubnikow-de Haas effect describes the oscillations of the longitudinal resistivity $\rho_{xx}$ with increasing magnetic field $B$.
 It can be explained with the equally spaced Landau levels moving up in energy, when $B$ increases.
 The charge carrier density $n_\text{SdH}$ is calculated via
@@ -39,16 +49,6 @@ A clear peak is visible.
 To accurately locate the peak, a Gaussian is fit to the region and the peak value of the fit is used as $\Delta$.
 The error of the peak is estimated to be half the width of the Gaussian $\sigma / 2$.
 The Fourier transformed resistivity $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ for $1.4\,\text{K}K$ is shown in fig. \ref{fig:Fourier}.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.45\textwidth]{../Images/FourierMitGausFür14K.png}
-    \caption{Fourier transform of the longitudinal resistivity 
-    $\mathcal{F}\left[ \rho^\prime_\text{xx}\right]\left(f_\text B\right)$ 
-    for $1.4\,\text{K}$ to determine the frequency of Shoubnikow-de Haas oscillations.\\
-    The peak is determined with a fit of a gaussian curve.
-    }
-    \label{fig:Fourier}
-\end{figure}
 The charge carrier densities calculated with eq. \ref{eq:chargeCarrierFourier} are shown in tab. \ref{tab:ns}.
 \begin{table}[h]
     \centering
