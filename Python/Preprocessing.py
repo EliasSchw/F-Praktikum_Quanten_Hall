@@ -33,7 +33,7 @@ filepath_Gate_minus_1_5V = r'RawData/Gate_--1_49904V_LI_swiched_151_6V1_470K_end
 filepath_Gate_minus_1V = r'RawData/Gate_-0_9992V_LI_swiched_133_9V1_520K_end_133_5V1_520K 8.dat'
 filepath_Gate_1V = r'RawData/Gate_1V_LI_swiched_152_3V1_520K_end_134_0V1_520K 7.dat'
 filepath_Gate_1_5V = r'RawData/Gate_1_5V_LI_swiched_135_5V1_520K_end_134_7V1_520K 6.dat'
-filepath_Gate_minus_2V = r'F-Praktikum_Quanten_Hall/RawData/23.dat'
+filepath_Gate_minus_2V = r'RawData/23.dat'
 # im Array: filepath, cut_rampup_anfang (Zeit), cut_rampup_ende, cut_rampdown_anfang, cut_rampdown_ende, temp, temp_fehler, U_gate, switched:boolean
 Messungen_dict = {'4.2K': {'path': filepath_4_2K, 'switched': False, 'temp': 3.99, 'temp_fehler': 0.031, 'U_gate': -0.25},                 
                     '3K' : {'path': filepath_3K, 'temp': 2.97, 'temp_fehler': 0.0, 'U_gate': -0.25, 'switched': False},
@@ -185,6 +185,7 @@ def plotHalls():
     #plt.show()
 
 def interpoliereFürLukas(data):
+    
     max_index = np.argmax(data['B'])
     data_first_half = {
         'B': data['B'][:max_index + 1],
@@ -234,7 +235,29 @@ def interpoliereFürLukas(data):
     return averaged
 
 
-plotBeispielBildVomAnfang()
+def plotNeuenDatensatz():
+    data1 = getDatenreihe('Gate_minus_2V')
+    B = np.array(data1['B'])
+    rho_xx = np.array(data1['rho_xx'])/1000
+    rho_xy = np.array(data1['rho_xy'])/1000
+
+
+
+    plt.plot(B, rho_xx, label=r'$\rho_\text{xx}$')
+    plt.plot(B, rho_xy, label=r'$\rho_\text{xy}$')
+    plt.legend()
+    plt.xlim()
+    plt.ylim()
+        
+    plt.xlabel(r'$B\,/\,T$')
+    plt.ylabel(r'$\rho\,/\,k\Omega$')
+    plotter.fancyGraph()
+    plotter.save_and_open(filename='neuerDatensatz')
+    
+    
+
+plotNeuenDatensatz()
+#plotBeispielBildVomAnfang()
 #plotBeatingPattern()
 #plotrhoFürKaputteKurve()
 #plotHall()   
